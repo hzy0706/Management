@@ -36,6 +36,7 @@
 					<i class="el-icon-setting"></i>
 					<span slot="title">首页</span>
 				</el-menu-item> -->
+
         <el-submenu index="1">
           <template #title>
             <i class="el-icon-user-solid"></i>
@@ -102,6 +103,51 @@
       </el-menu>
     </el-col>
   </el-row>
+			<el-submenu index="1">
+					<template #title>
+						<i class="el-icon-user-solid"></i>
+						<span>业主管理</span>
+					</template>
+					<el-menu-item-group>
+						<el-menu-item index="/Owner">业主信息</el-menu-item>
+						<el-menu-item index="/Inspection">业主验房</el-menu-item>
+						<el-menu-item index="/Decorate">业主装修</el-menu-item>
+						<el-menu-item index="/Occupancy">业主入住</el-menu-item>
+						<el-menu-item index="/Maintain">请修管理</el-menu-item>
+					</el-menu-item-group>
+				</el-submenu>
+				
+				<el-submenu index="5">
+					<template #title>
+						<i class="el-icon-user-solid"></i>
+						<span>商铺管理</span>
+					</template>
+					<el-menu-item-group>
+						<el-menu-item index="/Tenant">商户管理</el-menu-item>
+						<el-menu-item index="/Lease">租赁管理</el-menu-item>
+						<el-menu-item index="/Market">销售管理</el-menu-item>
+						<el-menu-item index="/Shop">商铺管理</el-menu-item>
+						<el-menu-item index="/Statistics">统计报表</el-menu-item>
+					</el-menu-item-group>
+				</el-submenu>
+				<el-submenu index="4">
+					<template #title>
+						<i class="el-icon-notebook-2"></i>
+						<span>费项管理</span>
+					</template>
+					<el-menu-item-group>
+						<el-menu-item index="/costitem">							
+								<span>常规费项</span>
+						</el-menu-item>
+						<el-menu-item index="">
+										公摊费项
+						</el-menu-item>
+					</el-menu-item-group>
+				</el-submenu>
+			</el-menu>
+		</el-col>
+	</el-row>
+
 </template>
 
 <script>
