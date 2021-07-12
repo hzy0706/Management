@@ -28,7 +28,6 @@
 						<el-menu-item index="/Maintain">请修管理</el-menu-item>
 					</el-menu-item-group>
 				</el-submenu>
-				
 				<el-submenu index="5">
 					<template #title>
 						<i class="el-icon-user-solid"></i>

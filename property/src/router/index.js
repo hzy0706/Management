@@ -140,7 +140,7 @@ const routes = [{
 			showtop: ShowTop,
 			showpanel: Costitem
 		}
-	},
+	}
 ]
 
 const router = createRouter({
