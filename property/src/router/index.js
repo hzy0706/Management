@@ -17,7 +17,12 @@ import Inspection from '../components/owner/Inspection.vue'
 import Decorate from '../components/owner/Decorate.vue'
 import Occupancy from '../components/owner/Occupancy.vue'
 import Maintain from '../components/owner/Maintain.vue'
-
+/* 商铺管理->shopstore */
+import Lease from '../components/shopstore/Lease.vue'
+import Market from '../components/shopstore/Market.vue'
+import Shop from '../components/shopstore/Shop.vue'
+import Statistics from '../components/shopstore/Statistics.vue'
+import Tenant from '../components/shopstore/Tenant.vue'
 const routes = [{
 		path: '/',
 		redirect: '/HomePage'
@@ -75,6 +80,52 @@ const routes = [{
 			showleft: ShowLeft,
 			showtop: ShowTop,
 			showpanel: Maintain
+		}
+	},
+	/* 商铺管理->shopstore */
+	{
+		path: '/Lease',
+		name: 'Lease',
+		components: {
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: Lease
+		}
+	},
+	{
+		path: '/Market',
+		name: 'Market',
+		components: {
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: Market
+		}
+	},
+	{
+		path: '/Shop',
+		name: 'Shop',
+		components: {
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: Shop
+		}
+	},
+	{
+		path: '/Statistics',
+		name: 'Statistics',
+		components: {
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: Statistics
+		}
+	},
+	{
+		path: '/Tenant',
+		name: 'Tenant',
+		components: {
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: Tenant
 		}
 	},
 ]

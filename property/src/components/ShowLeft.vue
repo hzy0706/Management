@@ -28,6 +28,20 @@
 						<el-menu-item index="/Maintain">请修管理</el-menu-item>
 					</el-menu-item-group>
 				</el-submenu>
+				
+				<el-submenu index="5">
+					<template #title>
+						<i class="el-icon-user-solid"></i>
+						<span>商铺管理</span>
+					</template>
+					<el-menu-item-group>
+						<el-menu-item index="/Tenant">商户管理</el-menu-item>
+						<el-menu-item index="/Lease">租赁管理</el-menu-item>
+						<el-menu-item index="/Market">销售管理</el-menu-item>
+						<el-menu-item index="/Shop">商铺管理</el-menu-item>
+						<el-menu-item index="/Statistics">统计报表</el-menu-item>
+					</el-menu-item-group>
+				</el-submenu>
 			</el-menu>
 		</el-col>
 	</el-row>
