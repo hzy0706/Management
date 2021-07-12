@@ -28,7 +28,6 @@
 						<el-menu-item index="/Maintain">请修管理</el-menu-item>
 					</el-menu-item-group>
 				</el-submenu>
-<<<<<<< HEAD
 				
 				<el-submenu index="5">
 					<template #title>
@@ -41,8 +40,9 @@
 						<el-menu-item index="/Market">销售管理</el-menu-item>
 						<el-menu-item index="/Shop">商铺管理</el-menu-item>
 						<el-menu-item index="/Statistics">统计报表</el-menu-item>
-=======
-				<el-submenu index="2">
+					</el-menu-item-group>
+				</el-submenu>
+				<el-submenu index="4">
 					<template #title>
 						<i class="el-icon-notebook-2"></i>
 						<span>费项管理</span>
@@ -54,7 +54,6 @@
 						<el-menu-item index="">
 										公摊费项
 						</el-menu-item>
->>>>>>> da64649 (dxl第一次页面，查询功能)
 					</el-menu-item-group>
 				</el-submenu>
 			</el-menu>

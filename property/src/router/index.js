@@ -17,18 +17,15 @@ import Inspection from '../components/owner/Inspection.vue'
 import Decorate from '../components/owner/Decorate.vue'
 import Occupancy from '../components/owner/Occupancy.vue'
 import Maintain from '../components/owner/Maintain.vue'
-<<<<<<< HEAD
 /* 商铺管理->shopstore */
 import Lease from '../components/shopstore/Lease.vue'
 import Market from '../components/shopstore/Market.vue'
 import Shop from '../components/shopstore/Shop.vue'
 import Statistics from '../components/shopstore/Statistics.vue'
 import Tenant from '../components/shopstore/Tenant.vue'
-=======
 // 费项管理
 import Costitem from '../components/costitem/Costitem.vue'
 
->>>>>>> da64649 (dxl第一次页面，查询功能)
 const routes = [{
 		path: '/',
 		redirect: '/HomePage'
@@ -88,7 +85,6 @@ const routes = [{
 			showpanel: Maintain
 		}
 	},
-<<<<<<< HEAD
 	/* 商铺管理->shopstore */
 	{
 		path: '/Lease',
@@ -133,7 +129,9 @@ const routes = [{
 			showleft: ShowLeft,
 			showtop: ShowTop,
 			showpanel: Tenant
-=======
+		}
+	},
+	//费项管理
 	{
 		path: '/Costitem',
 		name: 'costitem',
@@ -141,7 +139,6 @@ const routes = [{
 			showleft: ShowLeft,
 			showtop: ShowTop,
 			showpanel: Costitem
->>>>>>> da64649 (dxl第一次页面，查询功能)
 		}
 	},
 ]
