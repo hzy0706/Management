@@ -17,10 +17,11 @@
 	</el-row>
     <div>
 		<div class="container">
-			<div class="handle-box" style="margin-left:-645px">
+			<div class="handle-box" style="margin-left:0px">
                 <el-input v-model="pageInfo.value" placeholder="楼盘名称或者收费方式" class="handle-input mr10"></el-input>
-				<el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>			
-            </div>
+				<el-button type="primary" style="width: 75px;height: 15px;" icon="el-icon-search" @click="handleSearch()"></el-button>			
+				<el-button type="primary" icon="el-icon-plus" style="margin-left: 575px;">新增</el-button>
+			</div>
 			<el-table :data="tableData" border class="table" ref="multipleTable" style="margin-left: 5px;box-shadow:0px 3px 3px #c8c8c8 ; width: 1150px;" header-cell-class-name="table-header"
 				:header-cell-style="{background:'#f8f8f9',color:'#606266'}">
                 <el-table-column type="selection"> </el-table-column>
@@ -44,12 +45,18 @@
                 <el-table-column prop="overduefine" label="滞纳金比率"></el-table-column>
                 <el-table-column prop="overdue" label="超期天数"></el-table-column>   
 				<el-table-column label="操作" width="180" align="center">
-					<template slot-scope="scope">
-						<el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">编辑
-						</el-button>
-						<el-button type="text" icon="el-icon-delete" class="red"
-							@click="handleDelete(scope.$index, scope.row)">删除</el-button>
-					</template>
+					<template #default="scope">
+						<el-button
+						  type="text"
+						  >编辑</el-button
+						>
+						&nbsp;
+						<el-button
+						  type="text"
+						  style="color: red"
+						  >删除</el-button
+						>
+					  </template>
 				</el-table-column>
 			</el-table>
 			<br/>
@@ -85,8 +92,13 @@
 				tableData:[]
 			}
 		},
-		created() {
-
+		computed: {
+			searchCondition(){	
+				return{
+					residenceName: this.pageInfo.value,
+					chco: this.pageInfo.value
+				}
+			}
 		},
 		methods: {
 			handleSizeChange(size) {
@@ -112,6 +124,20 @@
 
 				}) 
 			},
+			handleSearch() {
+				var searchForm =Object.assign(this.searchCondition,this.pageParam)
+				
+				this.axios({
+					url:"http://localhost:8080/Property/tCostitem/search",
+					method:'get',
+					params:searchForm
+				}).then((response) =>{
+					this.tableData = response.data.list
+					this.total = response.data.total
+				}).catch((error) =>{
+
+				})
+			}
 		},
         created(){
             this.loadData();
