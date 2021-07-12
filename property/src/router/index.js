@@ -17,14 +17,16 @@ import Inspection from '../components/owner/Inspection.vue'
 import Decorate from '../components/owner/Decorate.vue'
 import Occupancy from '../components/owner/Occupancy.vue'
 import Maintain from '../components/owner/Maintain.vue'
-/* 商铺管理->shopstore */
-import Lease from '../components/shopstore/Lease.vue'
-import Market from '../components/shopstore/Market.vue'
-import Shop from '../components/shopstore/Shop.vue'
-import Statistics from '../components/shopstore/Statistics.vue'
-import Tenant from '../components/shopstore/Tenant.vue'
-// 费项管理
-import Costitem from '../components/costitem/Costitem.vue'
+
+/*收费管理*/
+import standingBook from '../components/charge/standingBook.vue'
+import bookUpdate from '../components/charge/bookUpdate.vue'
+import details from '../components/charge/details.vue'
+import detailsUpdate from '../components/charge/detailsUpdate.vue'
+import charge from '../components/charge/charge.vue'
+import billList from '../components/charge/billList.vue'
+import billDetails from '../components/charge/billDetails.vue'
+
 
 const routes = [{
 		path: '/',
@@ -85,62 +87,84 @@ const routes = [{
 			showpanel: Maintain
 		}
 	},
-	/* 商铺管理->shopstore */
 	{
-		path: '/Lease',
-		name: 'Lease',
+		path: '/standingBook',
+		name: 'standingBook',
 		components: {
+			
 			showleft: ShowLeft,
 			showtop: ShowTop,
-			showpanel: Lease
+			showpanel: standingBook
+
 		}
 	},
 	{
-		path: '/Market',
-		name: 'Market',
+		path: '/bookUpdate',
+		name: 'bookUpdate',
 		components: {
+			
 			showleft: ShowLeft,
 			showtop: ShowTop,
-			showpanel: Market
+			showpanel: bookUpdate
+
 		}
 	},
 	{
-		path: '/Shop',
-		name: 'Shop',
+		path: '/details',
+		name: 'details',
 		components: {
+			
 			showleft: ShowLeft,
 			showtop: ShowTop,
-			showpanel: Shop
+			showpanel: details
+
 		}
 	},
 	{
-		path: '/Statistics',
-		name: 'Statistics',
+		path: '/details/detailsUpdate',
+		name: 'detailsUpdate',
 		components: {
+			
 			showleft: ShowLeft,
 			showtop: ShowTop,
-			showpanel: Statistics
+			showpanel: detailsUpdate
+
 		}
 	},
 	{
-		path: '/Tenant',
-		name: 'Tenant',
+		path: '/charge',
+		name: 'charge',
 		components: {
+			
 			showleft: ShowLeft,
 			showtop: ShowTop,
-			showpanel: Tenant
+			showpanel: charge
+
 		}
 	},
-	//费项管理
 	{
-		path: '/Costitem',
-		name: 'costitem',
+		path: '/billList',
+		name: 'billList',
 		components: {
+			
 			showleft: ShowLeft,
 			showtop: ShowTop,
-			showpanel: Costitem
+			showpanel: billList
+
 		}
-	}
+	},
+	{
+		path: '/bill/billDetails',
+		name: 'billDetails',
+		components: {
+			
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: billDetails
+
+		}
+	},
+	
 ]
 
 const router = createRouter({
