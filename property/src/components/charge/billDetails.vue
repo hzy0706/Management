@@ -1,3 +1,4 @@
+
 <!--  -->
 <template>
   <el-row :gutter="18">
@@ -36,12 +37,14 @@
         </el-table> </dev
     ></el-col>
   </el-row>
+
 </template>
 
 <script>
 export default {
   data() {
     return {
+
       data: [
         {
           label: "一级 1",
@@ -72,3 +75,4 @@ export default {
 </script>
 <style  scoped>
 </style>
+

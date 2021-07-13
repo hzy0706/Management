@@ -1,14 +1,16 @@
 <!--  -->
 <template>
-  <el-row :gutter="18">
-    <el-col :span="2"
+  <el-row :gutter="20">
+    <el-col :span="3"
       ><div class="grid-content bg-purple">
         <el-tree
           :data="data"
           :props="defaultProps"
           @node-click="handleNodeClick"
+          :node-key="cid"
         ></el-tree></div
     ></el-col>
+
     <el-col :span="12" :offset="3"
       ><div class="grid-content bg-purple">
         <el-row :gutter="20">
@@ -107,19 +109,48 @@
 
           <el-form-item>
             <el-button type="primary" @click="createPay">生成台账</el-button>
+
           </el-form-item>
+          <el-form-item label="房间">
+            <el-select v-model="formInline.region" placeholder="活动区域">
+              <el-option label="区域一" value="shanghai"></el-option>
+              <el-option label="区域二" value="beijing"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="费用起期">
+            <el-date-picker v-model="value1" type="date" placeholder="选择日期">
+            </el-date-picker>
+          </el-form-item>
+           <el-form-item label="费用止期">
+            <el-date-picker v-model="value1" type="date" placeholder="选择日期">
+            </el-date-picker>
+          </el-form-item>
+        
         </el-form>
+        <el-row type="flex" >
+
+  <el-col :span="6"><div class="grid-content bg-purple-light"> 台账名称<el-input v-model="input" :resize="horizontal"></el-input></div></el-col>
+  <el-col :span="6"><div class="grid-content bg-purple">  <el-button size="mini" round>生成台账</el-button></div></el-col>
+</el-row>
+        
+     
+        
       </div>
+
       <!-- <dev class="grid-content bg-purple">
+
+
         <el-table :data="tableData" border style="width: 100%">
           <el-table-column prop="date" label="日期" width="180">
           </el-table-column>
           <el-table-column prop="name" label="姓名" width="180">
           </el-table-column>
           <el-table-column prop="address" label="地址"> </el-table-column>
+
         </el-table> </dev
     > -->
     </el-col>
+
   </el-row>
 </template>
 
@@ -127,6 +158,7 @@
 export default {
   data() {
     return {
+
       begin:"",
       end:"",
       parName:"",
@@ -137,10 +169,12 @@ export default {
           children: [
             {
               label: "常规费项",
+
               children: [
                 {
                   cid: 1,
                   label: "水电费",
+
                 },
               ],
             },
@@ -254,6 +288,7 @@ export default {
   created(){
   
   }
+
 };
 </script>
 <style  scoped>
