@@ -135,40 +135,6 @@
 					value: ''
 				},
 				ownerData: [],
-				residenceData: [],
-				buildingData: [],
-				unitData: [],
-				houseData2: [],
-				dialogVisible4: false,
-				House: {
-					ohId: '',
-					houseId: '',
-					ownerId: '',
-					houseNo: '',
-					decorateDate: '',
-					ohRemark: '',
-					houseName: '',
-					rid: '',
-					bid: '',
-					uid: ''
-				},
-				Owner: {
-					ownerId: '',
-					ownerType: '',
-					ownerName: '',
-					ownerSex: '',
-					ownerBirth: '',
-					ownerNation: '',
-					ownerEducation: '',
-					ownerNotype: '',
-					ownerNo: '',
-					ownerWork: '',
-					ownerPhone: '',
-					urgentName: '',
-					urgentPhone: '',
-					familyCount: '',
-					houseCount: ''
-				}
 			}
 		},
 		created() {

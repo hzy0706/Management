@@ -4,11 +4,11 @@
 			<div class="el-center-title-content">
 				<div class="ivn-page-header-main">
 					<div class="ivn-page-header-row">
-						<div class="ivu-page-header-title"><router-link :to="{name:'Inspection'}" style="font-size: 20px;font-weight: 500;">业主验房</router-link></div>
+						<div class="ivu-page-header-title"><router-link :to="{name:'Maintain'}" style="font-size: 20px;font-weight: 500;">业主请修</router-link></div>
 					</div>
 					<div class="ivn-page-header-row">
 						<div class="ivu-page-header-content">
-							添加验房信息
+							新增业主请修
 						</div>
 					</div>
 				</div>
@@ -16,75 +16,54 @@
 		</el-col>
 	</el-row>
 	<div>
-		<el-form :model="Inspectionroominfo" label-width="100px" class="demo-ruleForm">
+		<el-form :model="Maintain" label-width="100px" class="demo-ruleForm">
 			<div class="div1">
 				<el-form-item label="住宅">
-					<el-select v-model="Inspectionroominfo.rid" placeholder="请选择" @change="selectAllTBuildingByRid()">
+					<el-select v-model="Maintain.rid" placeholder="请选择" @change="selectAllTBuildingByRid()">
 						<el-option v-for="item in residenceData" :key="item.residenceId" :label="item.residenceName"
 							:value="item.residenceId">
 						</el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="房间">
-					<el-select v-model="Inspectionroominfo.houseId" placeholder="请选择" @change="selectAllTHouseByUid()">
+					<el-select v-model="Maintain.houseId" placeholder="请选择" @change="selectTOwnerHouseByHouseId()">
 						<el-option v-for="item in houseData2" :key="item.houseId" :label="item.houseName"
 							:value="item.houseId">
 						</el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item label="验收项目">
-					<el-select v-model="Inspectionroominfo.irType" placeholder="请选择验收项目">
-						<el-option label="窗户" value="窗户"></el-option>
-						<el-option label="窗台" value="窗台"></el-option>
-						<el-option label="地板" value="地板"></el-option>
-						<el-option label="墙面" value="墙面"></el-option>
-						<el-option label="天花板" value="天花板"></el-option>
-					</el-select>
-				</el-form-item>
-				<el-form-item label="业主意见">
-					<el-input v-model="Inspectionroominfo.irOwnerSuggest"></el-input>
+				<el-form-item label="申请时间">
+					<el-input type="date" v-model="Maintain.applyDate"></el-input>
 				</el-form-item>
 			</div>
 			<div class="div1">
 				<el-form-item label="楼宇">
-					<el-select v-model="Inspectionroominfo.bid" placeholder="请选择" @change="selectAllTUnitByBid()">
+					<el-select v-model="Maintain.bid" placeholder="请选择" @change="selectAllTUnitByBid()">
 						<el-option v-for="item in buildingData" :key="item.buildingId" :label="item.buildingName"
 							:value="item.buildingId">
 						</el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item label="验收日期">
-					<el-input type="date" v-model="Inspectionroominfo.acceptanceDate"></el-input>
+				<el-form-item label="申请人">
+					<el-input v-model="Maintain.applyName"></el-input>
 				</el-form-item>
-				<el-form-item label="是否合格">
-					<el-select v-model="Inspectionroominfo.isOk" placeholder="请选择是否合格">
-						<el-option label="合格" value="0"></el-option>
-						<el-option label="不合格" value="1"></el-option>
-					</el-select>
-				</el-form-item>
-				<el-form-item label="物业意见">
-					<el-input v-model="Inspectionroominfo.irPropertySuggest"></el-input>
+				<el-form-item label="请修内容">
+					<el-input v-model="Maintain.maintainContent"></el-input>
 				</el-form-item>
 			</div>
 			<div class="div1">
 				<el-form-item label="单元">
-					<el-select v-model="Inspectionroominfo.uid" placeholder="请选择" @change="selectAllTHouseByUid()">
+					<el-select v-model="Maintain.uid" placeholder="请选择" @change="selectAllTHouseByUid()">
 						<el-option v-for="item in unitData" :key="item.unitId" :label="item.unitName" :value="item.unitId">
 						</el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item label="确认日期">
-					<el-input type="date" v-model="Inspectionroominfo.confirmationDate"></el-input>
-				</el-form-item>
-				<el-form-item label="验收人员">
-					<el-input v-model="Inspectionroominfo.irName"></el-input>
-				</el-form-item>
-				<el-form-item label="备注">
-					<el-input v-model="Inspectionroominfo.irRemark"></el-input>
+				<el-form-item label="联系电话">
+					<el-input v-model="Maintain.maintainPhone"></el-input>
 				</el-form-item>
 			</div>
-			<el-form-item style="position: absolute;top:480px;left: 570px;">
-				<el-button type="primary" style="width: 200px;" @click="addInspectionroominfo()">保存</el-button>
+			<el-form-item style="position: absolute;top:400px;left: 570px;">
+				<el-button type="primary" style="width: 200px;" @click="addMaintain()">保存</el-button>
 			</el-form-item>
 		</el-form>
 	</div>
@@ -101,17 +80,18 @@
 		},
 		data(){
 			return{
+				Maintain:{},
 				residenceData: [],
 				buildingData: [],
 				unitData: [],
 				houseData2: [],
-				Inspectionroominfo:{}
 			}
 		},
 		methods:{
-			addInspectionroominfo(){
+			addMaintain(){
 				const _this = this
-				this.axios.post("http://localhost:8080/Property/addTInspectionroominfo", this.Inspectionroominfo)
+				this.Maintain.createName="胡志远";
+				this.axios.post("http://localhost:8080/Property/addTMaintain", this.Maintain)
 					.then(function(response) {
 						if (response.data.code == 200) {
 							ElMessage.success({
@@ -124,7 +104,7 @@
 								type: 'success'
 							});
 						}
-						_this.$router.push("/Inspection");
+						_this.$router.push("/Maintain");
 					}).catch(function(error) {
 						console.log(error)
 				})
@@ -140,16 +120,16 @@
 			},
 			selectAllTBuildingByRid() {
 				const _this = this
-				this.axios.get("http://localhost:8080/Property/selectAllTBuildingByRid/" + this.Inspectionroominfo.rid)
+				this.axios.get("http://localhost:8080/Property/selectAllTBuildingByRid/" + this.Maintain.rid)
 					.then(function(response) {
 						_this.buildingData = response.data.data;
 					}).catch(function(error) {
 						console.log(error)
-					})
+				})
 			},
 			selectAllTUnitByBid() {
 				const _this = this
-				this.axios.get("http://localhost:8080/Property/selectAllTUnitByBid/" + this.Inspectionroominfo.bid)
+				this.axios.get("http://localhost:8080/Property/selectAllTUnitByBid/" + this.Maintain.bid)
 					.then(function(response) {
 						_this.unitData = response.data.data;
 					}).catch(function(error) {
@@ -158,9 +138,24 @@
 			},
 			selectAllTHouseByUid() {
 				const _this = this
-				this.axios.get("http://localhost:8080/Property/selectAllTHouseByUid/" + this.Inspectionroominfo.uid)
+				this.axios.get("http://localhost:8080/Property/selectAllTHouseByUid/" + this.Maintain.uid)
 					.then(function(response) {
 						_this.houseData2 = response.data.data;
+					}).catch(function(error) {
+						console.log(error)
+					})
+			},
+			selectTOwnerHouseByHouseId(){
+				const _this = this
+				this.axios.get("http://localhost:8080/Property/selectTOwnerHouseByHouseId/" + this.Maintain.houseId)
+					.then(function(response) {
+						if(response.data.data != null){
+							_this.Maintain.applyName = response.data.data.towner.ownerName
+							_this.Maintain.maintainPhone = response.data.data.towner.ownerPhone
+						}else{
+							_this.Maintain.applyName =''
+							_this.Maintain.maintainPhone =''
+						}
 					}).catch(function(error) {
 						console.log(error)
 					})

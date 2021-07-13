@@ -22,8 +22,18 @@ import Inspection from '../components/owner/Inspection.vue'
 import addInspection from '../components/owner/InspectionInfo/addInspection.vue'
 
 import Decorate from '../components/owner/Decorate.vue'
+import addDecorate from '../components/owner/DecorateInfo/addDecorate.vue'
+import updateDecorate from '../components/owner/DecorateInfo/updateDecorate.vue'
+import appDecorate from '../components/owner/DecorateInfo/appDecorate.vue'
+import findDecorate from '../components/owner/DecorateInfo/findDecorate.vue'
+
 import Occupancy from '../components/owner/Occupancy.vue'
+
 import Maintain from '../components/owner/Maintain.vue'
+import addMaintain from '../components/owner/MaintainInfo/addMaintain.vue'
+import updateMaintain from '../components/owner/MaintainInfo/updateMaintain.vue'
+import appMaintain from '../components/owner/MaintainInfo/appMaintain.vue'
+import findMaintain from '../components/owner/MaintainInfo/findMaintain.vue'
 
 /*收费管理*/
 import charge from '../components/charge/charge.vue'
@@ -125,6 +135,42 @@ const routes = [{
 		}
 	},
 	{
+		path: '/addDecorate',
+		name: 'addDecorate',
+		components: {
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: addDecorate
+		}
+	},
+	{
+		path: '/updateDecorate',
+		name: 'updateDecorate',
+		components: {
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: updateDecorate
+		}
+	},
+	{
+		path: '/appDecorate',
+		name: 'appDecorate',
+		components: {
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: appDecorate
+		}
+	},
+	{
+		path: '/findDecorate',
+		name: 'findDecorate',
+		components: {
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: findDecorate
+		}
+	},
+	{
 		path: '/Occupancy',
 		name: 'Occupancy',
 		components: {
@@ -140,6 +186,42 @@ const routes = [{
 			showleft: ShowLeft,
 			showtop: ShowTop,
 			showpanel: Maintain
+		}
+	},
+	{
+		path: '/addMaintain',
+		name: 'addMaintain',
+		components: {
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: addMaintain
+		}
+	},
+	{
+		path: '/updateMaintain',
+		name: 'updateMaintain',
+		components: {
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: updateMaintain
+		}
+	},
+	{
+		path: '/appMaintain',
+		name: 'appMaintain',
+		components: {
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: appMaintain
+		}
+	},
+	{
+		path: '/findMaintain',
+		name: 'findMaintain',
+		components: {
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: findMaintain
 		}
 	},
 	{
