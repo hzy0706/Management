@@ -190,8 +190,7 @@
 				this.dialogVisible2=true;
 			},
 			addClick(){
-				this.selectAllTResidence();
-				this.dialogVisible=true;
+				this.$router.push("/addInspection");
 			},
 			addInspectionroominfo(){
 				const _this = this

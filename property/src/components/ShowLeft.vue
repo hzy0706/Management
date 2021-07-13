@@ -28,6 +28,31 @@
 						<el-menu-item index="/Maintain">请修管理</el-menu-item>
 					</el-menu-item-group>
 				</el-submenu>
+				<el-submenu index="2">
+					<template #title>
+						<i class="el-icon-user-solid"></i>
+						<span>收费管理</span>
+					</template>
+					<el-menu-item-group>
+						<el-submenu>
+							<template #title>
+								<span>费用生成</span>
+							</template>
+							<el-menu-item-group>
+								<el-menu-item index="/standingBook">生成台账</el-menu-item>
+							</el-menu-item-group>
+						</el-submenu>
+						<el-submenu>
+							<template #title>
+								<span>台账管理</span>
+							</template>
+							<el-menu-item-group>
+								<el-menu-item index="/bookUpdate">常规台账修改</el-menu-item>
+								<el-menu-item index="/Owner">公摊台账修改</el-menu-item>
+							</el-menu-item-group>
+						</el-submenu>
+					</el-menu-item-group>
+				</el-submenu>
 				<el-submenu index="5">
 					<template #title>
 						<i class="el-icon-menu"></i>
@@ -47,11 +72,11 @@
 						<span>费项管理</span>
 					</template>
 					<el-menu-item-group>
-						<el-menu-item index="/costitem">							
-								<span>常规费项</span>
+						<el-menu-item index="/costitem">
+							<span>常规费项</span>
 						</el-menu-item>
 						<el-menu-item index="">
-										公摊费项
+							公摊费项
 						</el-menu-item>
 					</el-menu-item-group>
 				</el-submenu>

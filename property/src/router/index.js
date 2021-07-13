@@ -13,7 +13,14 @@ import ShowTop from '../components/ShowTop.vue'
 import ShowPanel from '../components/ShowPanel.vue'
 /* 业主管理->owner */
 import Owner from '../components/owner/Owner.vue'
+import addOwer from '../components/owner/OwnerInfo/addOwer.vue'
+import updateOwer from '../components/owner/OwnerInfo/updateOwer.vue'
+import Family from '../components/owner/OwnerInfo/Family.vue'
+import House from '../components/owner/OwnerInfo/House.vue'
+
 import Inspection from '../components/owner/Inspection.vue'
+import addInspection from '../components/owner/InspectionInfo/addInspection.vue'
+
 import Decorate from '../components/owner/Decorate.vue'
 import Occupancy from '../components/owner/Occupancy.vue'
 import Maintain from '../components/owner/Maintain.vue'
@@ -24,7 +31,7 @@ import bookUpdate from '../components/charge/bookUpdate.vue'
 import details from '../components/charge/details.vue'
 import detailsUpdate from '../components/charge/detailsUpdate.vue'
 import charge from '../components/charge/charge.vue'
-/* import billList from '../components/charge/billList.vue' */
+import billList from '../components/charge/billList.vue'
 import billDetails from '../components/charge/billDetails.vue'
 
 /*商铺管理*/
@@ -58,12 +65,57 @@ const routes = [{
 		}
 	},
 	{
+		path: '/addOwer',
+		name: 'addOwer',
+		components: {
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: addOwer
+		}
+	},
+	{
+		path: '/updateOwer',
+		name: 'updateOwer',
+		components: {
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: updateOwer
+		}
+	},
+	{
+		path: '/Family',
+		name: 'Family',
+		components: {
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: Family
+		}
+	},
+	{
+		path: '/House',
+		name: 'House',
+		components: {
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: House
+		}
+	},
+	{
 		path: '/Inspection',
 		name: 'Inspection',
 		components: {
 			showleft: ShowLeft,
 			showtop: ShowTop,
 			showpanel: Inspection
+		}
+	},
+	{
+		path: '/addInspection',
+		name: 'addInspection',
+		components: {
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: addInspection
 		}
 	},
 	{
@@ -97,11 +149,9 @@ const routes = [{
 		path: '/standingBook',
 		name: 'standingBook',
 		components: {
-			
 			showleft: ShowLeft,
 			showtop: ShowTop,
 			showpanel: standingBook
-
 		}
 	},
 	{
@@ -148,7 +198,7 @@ const routes = [{
 
 		}
 	},
-	/* {
+	{
 		path: '/billList',
 		name: 'billList',
 		components: {
@@ -158,7 +208,7 @@ const routes = [{
 			showpanel: billList
 
 		}
-	}, */
+	},
 	{
 		path: '/bill/billDetails',
 		name: 'billDetails',
