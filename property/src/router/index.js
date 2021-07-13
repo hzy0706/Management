@@ -48,6 +48,8 @@ import Statistics from '../components/shopstore/Statistics.vue'
 
 /*费项管理*/
 import Costitem from '../components/costitem/Costitem.vue'
+import CostitemDistribute from '../components/costitem/costitemDistribute.vue'
+import Xin from '../components/costitem/Xin.vue'
 const routes = [{
 		path: '/',
 		redirect: '/HomePage'
@@ -311,7 +313,29 @@ const routes = [{
 			showpanel: Costitem
 	
 		}
-	}
+	},
+	{
+		path: '/Xin',
+		name: 'Xin',
+		components: {
+			
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: Xin
+	
+		}
+	},
+	{
+		path: '/CostitemDistribute',
+		name: 'CostitemDistribute',
+		components: {
+			
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: CostitemDistribute
+	
+		}
+	},
 	
 ]
 
