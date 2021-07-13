@@ -55,8 +55,8 @@
 						
 						<el-form-item label="状态" :label-width="formLabelWidth">
 							<el-select v-model="TMerchant.merState" placeholder="状态" class="handle-select mr10">
-								<el-option key="0" label="正常" value="正常"></el-option>
-								<el-option key="1" label="停用" value="停用"></el-option>
+								<el-option key="0" label="正常" value="0"></el-option>
+								<el-option key="1" label="停用" value="1"></el-option>
 								
 								
 							</el-select>
@@ -151,8 +151,8 @@
 						
 						<el-form-item label="状态" :label-width="formLabelWidth">
 							<el-select v-model="TMerchant.merState" placeholder="状态" class="handle-select mr10">
-								<el-option key="0" label="正常" value="正常"></el-option>
-								<el-option key="1" label="停用" value="停用"></el-option>
+								<el-option key="0" label="正常" value="0"></el-option>
+								<el-option key="1" label="停用" value="1"></el-option>
 								
 								
 							</el-select>
