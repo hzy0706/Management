@@ -58,6 +58,12 @@
 				<el-table-column prop="approvalDate" label="审批时间" align="center"></el-table-column>
 				<el-table-column prop="approvalSuggest" label="审批意见" align="center" :show-overflow-tooltip='true'></el-table-column>
 				<el-table-column prop="checkSuggest" label="验收意见" align="center" :show-overflow-tooltip='true'></el-table-column>
+				<el-table-column label="操作" align="center">
+					<template #default="scope">
+						<el-button @click="findMaintain(scope.row)" type="text" size="small">查看详情
+						</el-button>
+					</template>
+				</el-table-column>
 			</el-table>
 			<div class="block">
 				<!-- 分页 -->
@@ -68,181 +74,6 @@
 			</div>
 		</div>
 	</div>
-	<el-dialog title="新增业主请修" v-model="dialogVisible" width="50%" :before-close="handleClose">
-		<el-form :model="Maintain" label-width="100px" class="demo-ruleForm">
-			<el-form-item label="住宅">
-				<el-select v-model="Maintain.rid" placeholder="请选择" @change="selectAllTBuildingByRid()">
-					<el-option v-for="item in residenceData" :key="item.residenceId" :label="item.residenceName"
-						:value="item.residenceId">
-					</el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item label="楼宇">
-				<el-select v-model="Maintain.bid" placeholder="请选择" @change="selectAllTUnitByBid()">
-					<el-option v-for="item in buildingData" :key="item.buildingId" :label="item.buildingName"
-						:value="item.buildingId">
-					</el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item label="单元">
-				<el-select v-model="Maintain.uid" placeholder="请选择" @change="selectAllTHouseByUid()">
-					<el-option v-for="item in unitData" :key="item.unitId" :label="item.unitName" :value="item.unitId">
-					</el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item label="房间">
-				<el-select v-model="Maintain.houseId" placeholder="请选择" @change="selectTOwnerHouseByHouseId()">
-					<el-option v-for="item in houseData2" :key="item.houseId" :label="item.houseName"
-						:value="item.houseId">
-					</el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item label="申请人">
-				<el-input v-model="Maintain.applyName"></el-input>
-			</el-form-item>
-			<el-form-item label="联系电话">
-				<el-input v-model="Maintain.maintainPhone"></el-input>
-			</el-form-item>
-			<el-form-item label="申请时间">
-				<el-input type="date" v-model="Maintain.applyDate"></el-input>
-			</el-form-item>
-			<el-form-item label="请修内容">
-				<el-input v-model="Maintain.maintainContent"></el-input>
-			</el-form-item>
-			<el-form-item>
-				<el-button type="primary" @click="addMaintain()">保存</el-button>
-			</el-form-item>
-		</el-form>
-	</el-dialog>
-	<el-dialog title="审核/编辑/删除请修信息" v-model="dialogVisible2" width="50%" :before-close="handleClose">
-		<el-form :model="Maintain" label-width="100px" class="demo-ruleForm">
-			<el-form-item label="申请人">
-				<el-input v-model="Maintain.applyName"></el-input>
-			</el-form-item>
-			<el-form-item label="联系电话">
-				<el-input v-model="Maintain.maintainPhone"></el-input>
-			</el-form-item>
-			<el-form-item label="申请时间">
-				<el-input type="date" v-model="Maintain.applyDate"></el-input>
-			</el-form-item>
-			<el-form-item label="请修内容">
-				<el-input v-model="Maintain.maintainContent"></el-input>
-			</el-form-item>
-			<el-form-item label="修理费用">
-				<el-input v-model="Maintain.maintainBail"></el-input>
-			</el-form-item>
-			<el-form-item label="审批意见">
-				<el-input v-model="Maintain.approvalSuggest"></el-input>
-			</el-form-item>
-			<el-form-item>
-				<el-button type="primary" @click="updateMaintain()">保存</el-button>
-				<el-button type="danger" @click="deleteMaintain()">删除</el-button>
-				<el-button type="warning" @click="appMaintain()">审核</el-button>
-			</el-form-item>
-		</el-form>
-	</el-dialog>
-	<el-dialog title="验收/作废请修信息" v-model="dialogVisible3" width="50%" :before-close="handleClose">
-		<el-form :model="Maintain" label-width="100px" class="demo-ruleForm">
-			<el-form-item label="申请人">
-				<el-input v-model="Maintain.applyName" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="联系电话">
-				<el-input v-model="Maintain.maintainPhone" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="申请时间">
-				<el-input type="date" v-model="Maintain.applyDate" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="请修内容">
-				<el-input v-model="Maintain.maintainContent" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="修理费用">
-				<el-input v-model="Maintain.maintainBail" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="审批意见">
-				<el-input v-model="Maintain.approvalSuggest" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="施工单位">
-				<el-input v-model="Maintain.buildUnit"></el-input>
-			</el-form-item>
-			<el-form-item label="负责人">
-				<el-input v-model="Maintain.buildName"></el-input>
-			</el-form-item>
-			<el-form-item label="负责人电话">
-				<el-input v-model="Maintain.buildPhone"></el-input>
-			</el-form-item>
-			<el-form-item label="施工开始日期">
-				<el-input type="date" v-model="Maintain.buildStartDate"></el-input>
-			</el-form-item>
-			<el-form-item label="施工结束日期">
-				<el-input type="date" v-model="Maintain.buildEndDate"></el-input>
-			</el-form-item>
-			<el-form-item label="验收人">
-				<el-input v-model="Maintain.checkName"></el-input>
-			</el-form-item>
-			<el-form-item label="验收时间">
-				<el-input type="date" v-model="Maintain.checkDate"></el-input>
-			</el-form-item>
-			<el-form-item label="验收意见">
-				<el-input v-model="Maintain.checkSuggest"></el-input>
-			</el-form-item>
-			<el-form-item label="备注">
-				<el-input v-model="Maintain.maintainRemark"></el-input>
-			</el-form-item>
-			<el-form-item>
-				<el-button type="primary" @click="processMaintain()">验收</el-button>
-				<el-button type="danger" @click="inidedMaintain()">作废</el-button>
-			</el-form-item>
-		</el-form>
-	</el-dialog>
-	<el-dialog title="请修详细信息" v-model="dialogVisible4" width="50%" :before-close="handleClose">
-		<el-form :model="Maintain" label-width="100px" class="demo-ruleForm">
-			<el-form-item label="申请人">
-				<el-input v-model="Maintain.applyName" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="联系电话">
-				<el-input v-model="Maintain.maintainPhone" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="申请时间">
-				<el-input type="date" v-model="Maintain.applyDate" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="请修内容">
-				<el-input v-model="Maintain.maintainContent" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="修理费用">
-				<el-input v-model="Maintain.maintainBail" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="审批意见">
-				<el-input v-model="Maintain.approvalSuggest" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="施工单位">
-				<el-input v-model="Maintain.buildUnit" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="负责人">
-				<el-input v-model="Maintain.buildName" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="负责人电话">
-				<el-input v-model="Maintain.buildPhone" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="施工开始日期">
-				<el-input type="date" v-model="Maintain.buildStartDate" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="施工结束日期">
-				<el-input type="date" v-model="Maintain.buildEndDate" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="验收人">
-				<el-input v-model="Maintain.checkName" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="验收时间">
-				<el-input type="date" v-model="Maintain.checkDate" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="验收意见">
-				<el-input v-model="Maintain.checkSuggest" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="备注">
-				<el-input v-model="Maintain.maintainRemark" disabled="disabled"></el-input>
-			</el-form-item>
-		</el-form>
-	</el-dialog>
 </template>
 
 <script>
@@ -260,42 +91,7 @@
 					value:''
 				},
 				tableData:[],
-				residenceData: [],
-				buildingData: [],
-				unitData: [],
-				houseData2: [],
-				dialogVisible:false,
-				dialogVisible2:false,
-				dialogVisible3:false,
-				dialogVisible4:false,
-				Maintain:{
-					maintainId:'',
-					houseId:'',
-					applyName:'',
-					maintainPhone:'',
-					createName:'',
-					createDate:'',
-					maintainState:'',
-					maintainContent:'',
-					maintainBail:'',
-					approvalSuggest:'',
-					approvalName:'',
-					approvalDate:'',
-					buildUnit:'',
-					buildName:'',
-					buildPhone:'',
-					buildStartDate:'',
-					buildEndDate:'',
-					checkName:'',
-					checkDate:'',
-					checkSuggest:'',
-					maintainRemark:'',
-					houseName:'',
-					applyDate:'',
-					rid:'',
-					bid:'',
-					uid:''
-				},
+				Maintain:{},
 			}
 		},
 		created() {
@@ -304,257 +100,24 @@
 		methods: {
 			controller(row){
 				if(row.maintainState==0){
-					this.Maintain.maintainId = row.maintainId;
-					this.Maintain.applyName = row.applyName;
-					this.Maintain.maintainPhone = row.maintainPhone;
-					this.Maintain.applyDate = row.applyDate;
-					this.Maintain.houseName = row.houseName;
-					this.Maintain.houseId = row.houseId;
-					this.Maintain.maintainContent = row.maintainContent;
-					this.dialogVisible2=true;
+					this.$router.push("/updateMaintain");
+					sessionStorage.setItem("name", JSON.stringify(row));
 				}
 				if(row.maintainState==1){
-					this.Maintain.maintainId = row.maintainId;
-					this.Maintain.applyName = row.applyName;
-					this.Maintain.maintainPhone = row.maintainPhone;
-					this.Maintain.applyDate = row.applyDate;
-					this.Maintain.houseName = row.houseName;
-					this.Maintain.houseId = row.houseId;
-					this.Maintain.maintainContent = row.maintainContent;
-					this.Maintain.maintainBail = row.maintainBail;
-					this.Maintain.approvalSuggest = row.approvalSuggest;
-					this.Maintain.approvalDate=row.approvalDate;
-					this.Maintain.approvalName=row.approvalName;
-					this.dialogVisible3=true;
+					this.$router.push("/appMaintain");
+					sessionStorage.setItem("name", JSON.stringify(row));
 				}
 				if(row.maintainState==2 || row.maintainState==3){
-					this.Maintain.maintainId = row.maintainId;
-					this.Maintain.applyName = row.applyName;
-					this.Maintain.maintainPhone = row.maintainPhone;
-					this.Maintain.applyDate = row.applyDate;
-					this.Maintain.houseName = row.houseName;
-					this.Maintain.houseId = row.houseId;
-					this.Maintain.maintainContent = row.maintainContent;
-					this.Maintain.maintainBail = row.maintainBail;
-					this.Maintain.approvalSuggest = row.approvalSuggest;
-					this.Maintain.approvalDate=row.approvalDate;
-					this.Maintain.approvalName=row.approvalName;
-					this.Maintain.buildUnit=row.buildUnit;
-					this.Maintain.buildName=row.buildName;
-					this.Maintain.buildPhone=row.buildPhone;
-					this.Maintain.buildStartDate=row.buildStartDate;
-					this.Maintain.buildEndDate=row.buildEndDate;
-					this.Maintain.checkName=row.checkName;
-					this.Maintain.checkDate=row.checkDate;
-					this.Maintain.checkSuggest=row.checkSuggest;
-					this.Maintain.maintainRemark=row.maintainRemark;
-					this.dialogVisible4=true;
+					this.$router.push("/findMaintain");
+					sessionStorage.setItem("name", JSON.stringify(row));
 				}
 			},
-			inidedMaintain(){
-				const _this = this
-				this.Maintain.buildUnit=null;
-				this.Maintain.buildName=null;
-				this.Maintain.buildPhone=null;
-				this.Maintain.buildStartDate=null;
-				this.Maintain.buildEndDate=null;
-				this.Maintain.checkName=null;
-				this.Maintain.checkDate=null;
-				this.Maintain.checkSuggest=null;
-				this.Maintain.maintainRemark=null;
-				this.Maintain.maintainState=3;
-				this.axios.put("http://localhost:8080/Property/updateByTMaintainKeySelective", this.Maintain)
-					.then(function(response) {
-						if (response.data.code == 200) {
-							ElMessage.success({
-								message: '作废成功',
-								type: 'success'
-							});
-						} else {
-							ElMessage.error({
-								message: '数据异常,请联系技术部管理员',
-								type: 'success'
-							});
-						}
-						_this.dialogVisible3=false;
-						_this.selectAllTMaintainByState();
-						Object.keys(_this.Maintain).forEach((key) => (_this.Maintain[key] = ''))
-					}).catch(function(error) {
-						console.log(error)
-				})
-			},
-			processMaintain(){
-				const _this = this
-				this.Maintain.maintainState=2;
-				this.axios.put("http://localhost:8080/Property/updateByTMaintainKeySelective",this.Maintain)
-					.then(function(response) {
-						if (response.data.code == 200) {
-							ElMessage.success({
-								message: '验收成功',
-								type: 'success'
-							});
-						} else {
-							ElMessage.error({
-								message: '数据异常,请联系技术部管理员',
-								type: 'success'
-							});
-						}
-						_this.dialogVisible3=false;
-						_this.selectAllTMaintainByState();
-						Object.keys(_this.Maintain).forEach((key) => (_this.Maintain[key] = ''))
-					}).catch(function(error) {
-						console.log(error)
-				})
-			},
-			appMaintain(){
-				const _this = this
-				this.Maintain.maintainState=1;
-				this.Maintain.approvalName='胡志远';
-				var date = new Date();
-				this.Maintain.approvalDate=date;
-				this.axios.put("http://localhost:8080/Property/updateByTMaintainKeySelective",this.Maintain)
-					.then(function(response) {
-						if (response.data.code == 200) {
-							ElMessage.success({
-								message: '审核成功',
-								type: 'success'
-							});
-						} else {
-							ElMessage.error({
-								message: '数据异常,请联系技术部管理员',
-								type: 'success'
-							});
-						}
-						_this.dialogVisible2=false;
-						_this.selectAllTMaintainByState();
-						Object.keys(_this.Maintain).forEach((key) => (_this.Maintain[key] = ''))
-					}).catch(function(error) {
-						console.log(error)
-				})
-			},
-			deleteMaintain(){
-				const _this = this
-				this.axios.delete("http://localhost:8080/Property/deleteByTMaintainKey/"+this.Maintain.maintainId)
-					.then(function(response) {
-						if (response.data.code == 200) {
-							ElMessage.success({
-								message: '删除成功',
-								type: 'success'
-							});
-						} else {
-							ElMessage.error({
-								message: '数据异常,请联系技术部管理员',
-								type: 'success'
-							});
-						}
-						_this.dialogVisible2=false;
-						_this.selectAllTMaintainByState();
-						Object.keys(_this.Maintain).forEach((key) => (_this.Maintain[key] = ''))
-					}).catch(function(error) {
-						console.log(error)
-				})
-			},
-			updateMaintain(){
-				const _this = this
-				this.Maintain.maintainBail=null;
-				this.Maintain.approvalSuggest=null;
-				this.axios.put("http://localhost:8080/Property/updateByTMaintainKeySelective", this.Maintain)
-					.then(function(response) {
-						if (response.data.code == 200) {
-							ElMessage.success({
-								message: '修改成功',
-								type: 'success'
-							});
-						} else {
-							ElMessage.error({
-								message: '数据异常,请联系技术部管理员',
-								type: 'success'
-							});
-						}
-						_this.dialogVisible2=false;
-						_this.selectAllTMaintainByState();
-						Object.keys(_this.Maintain).forEach((key) => (_this.Maintain[key] = ''))
-					}).catch(function(error) {
-						console.log(error)
-				})
+			findMaintain(row){
+				this.$router.push("/findMaintain");
+				sessionStorage.setItem("name", JSON.stringify(row));
 			},
 			addClick(){
-				this.selectAllTResidence();
-				this.dialogVisible=true;
-			},
-			addMaintain(){
-				const _this = this
-				this.axios.post("http://localhost:8080/Property/addTMaintain", this.Maintain)
-					.then(function(response) {
-						if (response.data.code == 200) {
-							ElMessage.success({
-								message: '添加成功',
-								type: 'success'
-							});
-						} else {
-							ElMessage.error({
-								message: '数据异常,请联系技术部管理员',
-								type: 'success'
-							});
-						}
-						_this.dialogVisible=false;
-						_this.selectAllTMaintainByState();
-						Object.keys(_this.Maintain).forEach((key) => (_this.Maintain[key] = ''))
-					}).catch(function(error) {
-						console.log(error)
-				})
-			},
-			selectAllTResidence() {
-				const _this = this
-				this.axios.get("http://localhost:8080/Property/selectAllTResidence")
-					.then(function(response) {
-						_this.residenceData = response.data.data;
-					}).catch(function(error) {
-						console.log(error)
-					})
-			},
-			selectAllTBuildingByRid() {
-				const _this = this
-				this.axios.get("http://localhost:8080/Property/selectAllTBuildingByRid/" + this.Maintain.rid)
-					.then(function(response) {
-						_this.buildingData = response.data.data;
-					}).catch(function(error) {
-						console.log(error)
-				})
-			},
-			selectAllTUnitByBid() {
-				const _this = this
-				this.axios.get("http://localhost:8080/Property/selectAllTUnitByBid/" + this.Maintain.bid)
-					.then(function(response) {
-						_this.unitData = response.data.data;
-					}).catch(function(error) {
-						console.log(error)
-					})
-			},
-			selectAllTHouseByUid() {
-				const _this = this
-				this.axios.get("http://localhost:8080/Property/selectAllTHouseByUid/" + this.Maintain.uid)
-					.then(function(response) {
-						_this.houseData2 = response.data.data;
-					}).catch(function(error) {
-						console.log(error)
-					})
-			},
-			selectTOwnerHouseByHouseId(){
-				const _this = this
-				this.axios.get("http://localhost:8080/Property/selectTOwnerHouseByHouseId/" + this.Maintain.houseId)
-					.then(function(response) {
-						console.log(response)
-						if(response.data.data != null){
-							_this.Maintain.applyName = response.data.data.towner.ownerName
-							_this.Maintain.maintainPhone = response.data.data.towner.ownerPhone
-						}else{
-							_this.Maintain.applyName =''
-							_this.Maintain.maintainPhone =''
-						}
-					}).catch(function(error) {
-						console.log(error)
-					})
+				this.$router.push("/addMaintain");
 			},
 			selectAllTMaintainByState(){
 				const _this = this
@@ -567,13 +130,6 @@
 					}).catch(function(error) {
 						console.log(error)
 				})
-			},
-			handleClose() {
-				Object.keys(this.Maintain).forEach((key) => (this.Maintain[key] = ''))
-				this.dialogVisible = false;
-				this.dialogVisible2 = false;
-				this.dialogVisible3 = false;
-				this.dialogVisible4 = false;
 			},
 			handleSizeChange(size) {
 				this.pageInfo.pagesize = size;
