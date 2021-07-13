@@ -34,6 +34,8 @@ import Market from '../components/shopstore/Market.vue'
 import Shop from '../components/shopstore/Shop.vue'
 import Statistics from '../components/shopstore/Statistics.vue'
 
+/*费项管理*/
+import Costitem from '../components/costitem/Costitem.vue'
 const routes = [{
 		path: '/',
 		redirect: '/HomePage'
@@ -225,6 +227,17 @@ const routes = [{
 	
 		}
 	},
+	{
+		path: '/Costitem',
+		name: 'Costitem',
+		components: {
+			
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: Costitem
+	
+		}
+	}
 	
 ]
 
