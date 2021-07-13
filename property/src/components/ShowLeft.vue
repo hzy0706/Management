@@ -57,6 +57,9 @@
 						<span>费项管理</span>
 					</template>
 					<el-menu-item-group>
+						<el-menu-item index="/costitem">
+							<span>常规费项</span>
+						</el-menu-item>
 						<el-menu-item index="/costitemDistribute">
 								费项查询
 						</el-menu-item>
