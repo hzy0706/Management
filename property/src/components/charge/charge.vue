@@ -19,7 +19,7 @@
           tooltip-effect="dark"
           style="width: 100%"
           @selection-change="handleSelectionChange"
-          ref="tableCompponet"
+      
         >
           <el-table-column width="120" type="selection"> </el-table-column>
 
