@@ -62,8 +62,11 @@
 						<el-menu-item index="/costitem">
 							<span>常规费项</span>
 						</el-menu-item>
-						<el-menu-item index="">
-							公摊费项
+						<el-menu-item index="/costitemDistribute">
+								费项查询
+						</el-menu-item>
+						<el-menu-item index="/Xin">
+								公摊费项
 						</el-menu-item>
 					</el-menu-item-group>
 				</el-submenu>

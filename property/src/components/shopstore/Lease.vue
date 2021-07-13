@@ -171,7 +171,7 @@
 							</el-form-item>
 							
 							<el-form-item label="收费面积" :label-width="formLabelWidth">
-								<el-input v-model="TLeasingContract.leaseAcre" size="small" clearable></el-input>
+								<el-input v-model="TLeasingContract.leaseAcre" size="small"  @change="jisuan()" clearable></el-input>
 							</el-form-item>
 							
 							<el-form-item label="计费方式" :label-width="formLabelWidth">
@@ -186,12 +186,15 @@
 						
 						<el-col :span="5">
 							<el-form-item label="单价(m)" :label-width="formLabelWidth">
-								<el-input size="small" v-model="TLeasingContract.leaseUnitprice"></el-input>
+								<el-input size="small" v-model="TLeasingContract.leaseUnitprice" @change="jisuan()"></el-input>
 							</el-form-item>
 							<el-form-item label="租期(月)" :label-width="formLabelWidth">
-								<el-input size="small" v-model="TLeasingContract.leaseTenterm" disabled></el-input>
+								<el-input size="small" v-model="TLeasingContract.leaseTenterm"  @change="jisuan()" disabled></el-input>
 							</el-form-item>
-
+							
+							<el-form-item label="总额" :label-width="formLabelWidth">
+								<el-input size="small" v-model="TLeasingContract.leasePrice" disabled></el-input>
+							</el-form-item>
 
 						</el-col>
 
@@ -220,7 +223,7 @@
 			 :header-cell-style="{background:'#f8f8f9',color:'#606266'}" @selection-change="handleSelectionChange">
 				<el-table-column label="操作" width="150">
 					<template #default="scope">
-						<el-button type="text" icon="el-icon-edit" @click="tLeasingContract.fangjianVisible=true;TLeasingContract=scope.row">房间租金明细
+						<el-button type="text" icon="el-icon-edit" @click="tLeasingContract.fangjianVisible=true;TLeasingContract=scope.row;jisuan()">房间租金明细
 						</el-button>
 
 
@@ -254,7 +257,13 @@
 				<el-table-column prop="tmerchant.merCardtype" label="证件类型"></el-table-column>
 				<el-table-column prop="tmerchant.merCard" label="证件号码"></el-table-column>
 				<el-table-column prop="tmerchant.merMarket" label="备注"></el-table-column>
-				<el-table-column prop="" label="创建人"></el-table-column>
+				<el-table-column prop="" label="审核">
+					<template #default="scope">
+						<el-button type="text" icon="el-icon-edit" @click="shenhe(scope.row.leaseId)" v-if="tLeasingContract.tableData[scope.$index].leaseAudit == 0">审核
+						</el-button>
+							
+					</template>
+				</el-table-column>
 			</el-table>
 			<div class="block">
 				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes="[10,20,40,80]"
@@ -276,6 +285,7 @@
 					type: '',
 					value: ''
 				},
+				leaseidid:'',
 				queryType: '',
 				liststate: [],
 				screenCondition: {},
@@ -332,15 +342,36 @@
 					
 
 				}
+			},
+			
+			searchjin() {
+				return {
+					"merState": 0,
+					
+					
+			
+				}
+			},
+			searchshen() {
+				return {
+					"leaseAudit": 1,
+					"leaseId":this.leaseidid,
+					
+			
+				}
 			}
 		},
 
 		methods: {
+			jisuan() {
+				this.TLeasingContract.leasePrice=this.TLeasingContract.leaseAcre*this.TLeasingContract.leaseUnitprice*this.TLeasingContract.leaseTenterm
+			},
 			clickEmployeeSelect() {
+				var screenForm = Object.assign(this.searchjin, this.tMerchant.pageParam)
 				this.axios({
 					url: "http://127.0.0.1:8080/Property/tMerchant/search",
 					method: 'get',
-					params: this.tMerchant.pageParam
+					params: screenForm
 				}).then((response) => {
 					console.log(response.data.list)
 					this.tMerchant.tableData = response.data.list
@@ -475,7 +506,7 @@
 
 			},
 			update(number) {
-			
+				if(this.TLeasingContract.leaseAudit==0) {
 					console.log(this.TLeasingContract)
 					this.axios({
 						url: 'http://127.0.0.1:8080/Property/tLeasingContract',
@@ -501,10 +532,42 @@
 					}).catch(error => {
 
 					})
+					}else{
+					
+						
+						this.$message({
+							type: 'warning',
+							message: '审核成功后无法修改！'
+						})
+					}
 				
 
 			},
+			shenhe(aa){
+				this.leaseidid=aa;
+				var screenForm = Object.assign(this.searchshen)
+				console.log(screenForm)
+				this.axios({
+					url: 'http://127.0.0.1:8080/Property/tLeasingContract',
+					method: 'put',
+					data: screenForm
+				}).then(response => {
+					
+						this.$message({
+							type: 'success',
+							message: '审核成功！'
+						})
+						this.leaseidid=''
+					this.findMerchant()
+				
+				}).catch(error => {
+				
+				})
+				
+			},
 			updatemode(number) {
+				if(this.TLeasingContract.leaseAudit==0){
+					
 				if (this.TLeasingContract.leaseDate != '' && this.TLeasingContract.leaseDate != null && this.TLeasingContract.merId !=
 					'' && this.TLeasingContract.merId != null && this.TLeasingContract.leaseContacts != '' && this.TLeasingContract.leaseContacts !=
 					null && this.TLeasingContract.leasePhone !=
@@ -540,6 +603,13 @@
 					this.$message({
 						type: 'warning',
 						message: '必填未填！'
+					})
+				}
+				}else{
+					this.productallsel()
+					this.$message({
+						type: 'warning',
+						message: '审核成功后无法修改！'
 					})
 				}
 			

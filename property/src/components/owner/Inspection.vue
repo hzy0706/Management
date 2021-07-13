@@ -47,73 +47,6 @@
 			</div>
 		</div>
 	</div>
-	<el-dialog title="新增业主验房" v-model="dialogVisible" width="50%" :before-close="handleClose">
-		<el-form :model="Inspectionroominfo" label-width="100px" class="demo-ruleForm">
-			<el-form-item label="住宅">
-				<el-select v-model="Inspectionroominfo.rid" placeholder="请选择" @change="selectAllTBuildingByRid()">
-					<el-option v-for="item in residenceData" :key="item.residenceId" :label="item.residenceName"
-						:value="item.residenceId">
-					</el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item label="楼宇">
-				<el-select v-model="Inspectionroominfo.bid" placeholder="请选择" @change="selectAllTUnitByBid()">
-					<el-option v-for="item in buildingData" :key="item.buildingId" :label="item.buildingName"
-						:value="item.buildingId">
-					</el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item label="单元">
-				<el-select v-model="Inspectionroominfo.uid" placeholder="请选择" @change="selectAllTHouseByUid()">
-					<el-option v-for="item in unitData" :key="item.unitId" :label="item.unitName" :value="item.unitId">
-					</el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item label="房间">
-				<el-select v-model="Inspectionroominfo.houseId" placeholder="请选择" @change="selectAllTHouseByUid()">
-					<el-option v-for="item in houseData2" :key="item.houseId" :label="item.houseName"
-						:value="item.houseId">
-					</el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item label="验收日期">
-				<el-input type="date" v-model="Inspectionroominfo.acceptanceDate"></el-input>
-			</el-form-item>
-			<el-form-item label="确认日期">
-				<el-input type="date" v-model="Inspectionroominfo.confirmationDate"></el-input>
-			</el-form-item>
-			<el-form-item label="验收项目">
-				<el-select v-model="Inspectionroominfo.irType" placeholder="请选择验收项目">
-					<el-option label="窗户" value="窗户"></el-option>
-					<el-option label="窗台" value="窗台"></el-option>
-					<el-option label="地板" value="地板"></el-option>
-					<el-option label="墙面" value="墙面"></el-option>
-					<el-option label="天花板" value="天花板"></el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item label="是否合格">
-				<el-select v-model="Inspectionroominfo.isOk" placeholder="请选择是否合格">
-					<el-option label="合格" value="0"></el-option>
-					<el-option label="不合格" value="1"></el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item label="验收人员">
-				<el-input v-model="Inspectionroominfo.irName"></el-input>
-			</el-form-item>
-			<el-form-item label="业主意见">
-				<el-input v-model="Inspectionroominfo.irOwnerSuggest"></el-input>
-			</el-form-item>
-			<el-form-item label="物业意见">
-				<el-input v-model="Inspectionroominfo.irPropertySuggest"></el-input>
-			</el-form-item>
-			<el-form-item label="备注">
-				<el-input v-model="Inspectionroominfo.irRemark"></el-input>
-			</el-form-item>
-			<el-form-item>
-				<el-button type="primary" @click="addInspectionroominfo()">保存</el-button>
-			</el-form-item>
-		</el-form>
-	</el-dialog>
 	<el-dialog title="验房详细信息" v-model="dialogVisible2" width="70%" :before-close="handleClose">
 		<el-table :data="InspectionroominfoData" height="400" :row-style="{height:'45px'}" :cell-style="{padding:'0px'}" stripe
 			class="table" ref="multipleTable" header-cell-class-name="table-header"
@@ -150,35 +83,8 @@
 				},
 				tableData:[],
 				InspectionroominfoData:[],
-				residenceData: [],
-				buildingData: [],
-				unitData: [],
-				houseData2: [],
-				dialogVisible:false,
 				dialogVisible2:false,
-				Inspectionroominfo:{
-					irinfoId:'',
-					houseId:'',
-					acceptanceDate:'',
-					confirmationDate:'',
-					irType:'',
-					isOk:'',
-					irName:'',
-					irOwnerSuggest:'',
-					irPropertySuggest:'',
-					irRemark:'',
-					irId:'',
-					rid:'',
-					bid:'',
-					uid:''
-				},
-				Inspectionroom:{
-					irId:'',
-					houseName:'',
-					houseId:'',
-					okcount:'',
-					nocount:''
-				}
+				Inspectionroominfo:{},
 			}
 		},
 		created() {
@@ -188,39 +94,6 @@
 			selectInspectionroominfo(row){
 				this.selectAllTInspectionroominfoByIrid(row.irId);
 				this.dialogVisible2=true;
-			},
-			addClick(){
-				this.$router.push("/addInspection");
-			},
-			addInspectionroominfo(){
-				const _this = this
-				this.axios.post("http://localhost:8080/Property/addTInspectionroominfo", this.Inspectionroominfo)
-					.then(function(response) {
-						if (response.data.code == 200) {
-							ElMessage.success({
-								message: '添加成功',
-								type: 'success'
-							});
-						} else {
-							ElMessage.error({
-								message: '数据异常,请联系技术部管理员',
-								type: 'success'
-							});
-						}
-						_this.dialogVisible=false;
-						_this.selectAllTInspectionroomByRoomName();
-					}).catch(function(error) {
-						console.log(error)
-				})
-			},
-			selectAllTResidence() {
-				const _this = this
-				this.axios.get("http://localhost:8080/Property/selectAllTResidence")
-					.then(function(response) {
-						_this.residenceData = response.data.data;
-					}).catch(function(error) {
-						console.log(error)
-					})
 			},
 			selectAllTInspectionroominfoByIrid(id) {
 				const _this = this
@@ -232,32 +105,8 @@
 						console.log(error)
 					})
 			},
-			selectAllTBuildingByRid() {
-				const _this = this
-				this.axios.get("http://localhost:8080/Property/selectAllTBuildingByRid/" + this.Inspectionroominfo.rid)
-					.then(function(response) {
-						_this.buildingData = response.data.data;
-					}).catch(function(error) {
-						console.log(error)
-					})
-			},
-			selectAllTUnitByBid() {
-				const _this = this
-				this.axios.get("http://localhost:8080/Property/selectAllTUnitByBid/" + this.Inspectionroominfo.bid)
-					.then(function(response) {
-						_this.unitData = response.data.data;
-					}).catch(function(error) {
-						console.log(error)
-					})
-			},
-			selectAllTHouseByUid() {
-				const _this = this
-				this.axios.get("http://localhost:8080/Property/selectAllTHouseByUid/" + this.Inspectionroominfo.uid)
-					.then(function(response) {
-						_this.houseData2 = response.data.data;
-					}).catch(function(error) {
-						console.log(error)
-					})
+			addClick(){
+				this.$router.push("/addInspection");
 			},
 			selectAllTInspectionroomByRoomName(){
 				const _this = this
@@ -273,7 +122,6 @@
 			},
 			handleClose() {
 				Object.keys(this.Inspectionroominfo).forEach((key) => (this.Inspectionroominfo[key] = ''))
-				this.dialogVisible = false;
 				this.dialogVisible2 = false;
 			},
 			handleSizeChange(size) {

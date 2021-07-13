@@ -6,7 +6,7 @@
 					<div class="handle-box">
 						
 						
-						<el-input v-model="tMerchant.searchInput" placeholder="用户名/商户编号/类别" class="handle-input mr10"></el-input>
+						<el-input v-model="tShopstore.searchInput" placeholder="用户名/类别" class="handle-input mr10"></el-input>
 						<el-button type="primary" icon="el-icon-search" @click="handleScreen">搜索</el-button>
 					</div>
 				</div>
@@ -16,20 +16,20 @@
 	<div>
 		<div class="container">
 			<div style="float: left;margin-top:-38px" >
-			<el-button type="primary"  @click="tMerchant.dialogVisible=true">新增</el-button>
+			<el-button type="primary"  @click="tShopstore.dialogVisible=true">新增</el-button>
 			<el-button type="primary"  @click="handleout">停用</el-button>
 			<el-button type="primary"  @click="handlebegin">恢复</el-button>
 			</div>
-			<el-dialog title="添加商户" v-model="tMerchant.dialogVisible">
-				<el-form :model="TMerchant" label-width="80px" style="width: 1000px;">
+			<el-dialog title="添加商户" v-model="tShopstore.dialogVisible">
+				<el-form :model="TShopstore" label-width="80px" style="width: 1000px;">
 					<el-row :span="3">
 						<el-col :span="5">
 							<el-form-item label="租户名称(必填)" :label-width="formLabelWidth">
-								<el-input v-model="TMerchant.merName" size="small" clearable></el-input>
+								<el-input v-model="TShopstore.merName" size="small" clearable></el-input>
 							</el-form-item>
 							
 							<el-form-item label="租户类别(必填)" :label-width="formLabelWidth">
-								<el-select v-model="TMerchant.merType" placeholder="租户类别" class="handle-select mr10">
+								<el-select v-model="TShopstore.merType" placeholder="租户类别" class="handle-select mr10">
 									<el-option key="本土品牌租户" label="本土品牌租户" value="本土品牌租户"></el-option>
 									<el-option key="个人租户" label="个人租户" value="个人租户"></el-option>
 									<el-option key="国际品牌租户" label="国际品牌租户" value="国际品牌租户"></el-option>
@@ -40,11 +40,11 @@
 							</el-form-item>
 							
 							<el-form-item label="法定代表" :label-width="formLabelWidth">
-								<el-input v-model="TMerchant.merRight" size="small" clearable></el-input>
+								<el-input v-model="TShopstore.merRight" size="small" clearable></el-input>
 							</el-form-item>
 						
 						<el-form-item label="证件类型" :label-width="formLabelWidth">
-							<el-select v-model="TMerchant.merCardtype" placeholder="证件类型" class="handle-select mr10">
+							<el-select v-model="TShopstore.merCardtype" placeholder="证件类型" class="handle-select mr10">
 								<el-option key="护照" label="护照" value="护照"></el-option>
 								<el-option key="驾驶证" label="驾驶证" value="驾驶证"></el-option>
 								<el-option key="身份证" label="身份证" value="身份证"></el-option>
@@ -54,9 +54,9 @@
 						</el-form-item>
 						
 						<el-form-item label="状态" :label-width="formLabelWidth">
-							<el-select v-model="TMerchant.merState" placeholder="状态" class="handle-select mr10">
-								<el-option key="0" label="正常" value="正常"></el-option>
-								<el-option key="1" label="停用" value="停用"></el-option>
+							<el-select v-model="TShopstore.merState" placeholder="状态" class="handle-select mr10">
+								<el-option key="0" label="正常" value="0"></el-option>
+								<el-option key="1" label="停用" value="1"></el-option>
 								
 								
 							</el-select>
@@ -64,25 +64,25 @@
 						</el-col>
 						<el-col :span="5">
 							<el-form-item label="联系人" :label-width="formLabelWidth">
-								<el-input v-model="TMerchant.merContacts" size="small" clearable></el-input>
+								<el-input v-model="TShopstore.merContacts" size="small" clearable></el-input>
 							</el-form-item>
 						
 							
 							
 							
 							<el-form-item label="联系电话" :label-width="formLabelWidth">
-								<el-input size="small" v-model="TMerchant.merPhone"></el-input>
+								<el-input size="small" v-model="TShopstore.merPhone"></el-input>
 							</el-form-item>
 							<el-form-item label="主营商品" :label-width="formLabelWidth">
-								<el-input v-model="TMerchant.merMain" size="small" clearable></el-input>
+								<el-input v-model="TShopstore.merMain" size="small" clearable></el-input>
 							</el-form-item>
 							
 							<el-form-item label="证件号码" :label-width="formLabelWidth">
-								<el-input v-model="TMerchant.merCard" size="small" clearable></el-input>
+								<el-input v-model="TShopstore.merCard" size="small" clearable></el-input>
 							</el-form-item>
 							
 							<el-form-item label="地址" :label-width="formLabelWidth">
-								<el-input size="small" v-model="TMerchant.merAddress" style="width: 250px;"></el-input>
+								<el-input size="small" v-model="TShopstore.merAddress" style="width: 250px;"></el-input>
 							</el-form-item>
 				
 						</el-col>
@@ -93,7 +93,7 @@
 						<el-col :span="5">
 				
 							<el-form-item label="备注" :label-width="formLabelWidth">
-								<el-input v-model="TMerchant.merMarket" size="small" type="textarea" style="width: 500px;"></el-input>
+								<el-input v-model="TShopstore.merMarket" size="small" type="textarea" style="width: 500px;"></el-input>
 							</el-form-item>
 				
 						</el-col>
@@ -106,7 +106,7 @@
 				</el-form>
 				<template #footer>
 					<span class="dialog-footer">
-						<el-button @click="tMerchant.dialogVisible = false;productallsel()">关 闭</el-button>
+						<el-button @click="tShopstore.dialogVisible = false;productallsel()">关 闭</el-button>
 						<el-button type="primary" @click="add(0)">保存并新建</el-button>
 						<el-button type="primary" @click="add(1)">保存并关闭</el-button>
 					</span>
@@ -116,16 +116,16 @@
 			
 			
 			
-			<el-dialog title="修改商户" v-model="tMerchant.dialogVisible1">
-				<el-form :model="TMerchant" label-width="80px" style="width: 1000px;">
+			<el-dialog title="修改商户" v-model="tShopstore.dialogVisible1">
+				<el-form :model="TShopstore" label-width="80px" style="width: 1000px;">
 					<el-row :span="3">
 						<el-col :span="5">
 							<el-form-item label="租户名称(必填)" :label-width="formLabelWidth">
-								<el-input v-model="TMerchant.merName" size="small" clearable></el-input>
+								<el-input v-model="TShopstore.merName" size="small" clearable></el-input>
 							</el-form-item>
 							
 							<el-form-item label="租户类别(必填)" :label-width="formLabelWidth">
-								<el-select v-model="TMerchant.merType" placeholder="租户类别" class="handle-select mr10">
+								<el-select v-model="TShopstore.merType" placeholder="租户类别" class="handle-select mr10">
 									<el-option key="本土品牌租户" label="本土品牌租户" value="本土品牌租户"></el-option>
 									<el-option key="个人租户" label="个人租户" value="个人租户"></el-option>
 									<el-option key="国际品牌租户" label="国际品牌租户" value="国际品牌租户"></el-option>
@@ -136,11 +136,11 @@
 							</el-form-item>
 							
 							<el-form-item label="法定代表" :label-width="formLabelWidth">
-								<el-input v-model="TMerchant.merRight" size="small" clearable></el-input>
+								<el-input v-model="TShopstore.merRight" size="small" clearable></el-input>
 							</el-form-item>
 						
 						<el-form-item label="证件类型" :label-width="formLabelWidth">
-							<el-select v-model="TMerchant.merCardtype" placeholder="证件类型" class="handle-select mr10">
+							<el-select v-model="TShopstore.merCardtype" placeholder="证件类型" class="handle-select mr10">
 								<el-option key="护照" label="护照" value="护照"></el-option>
 								<el-option key="驾驶证" label="驾驶证" value="驾驶证"></el-option>
 								<el-option key="身份证" label="身份证" value="身份证"></el-option>
@@ -150,9 +150,9 @@
 						</el-form-item>
 						
 						<el-form-item label="状态" :label-width="formLabelWidth">
-							<el-select v-model="TMerchant.merState" placeholder="状态" class="handle-select mr10">
-								<el-option key="0" label="正常" value="正常"></el-option>
-								<el-option key="1" label="停用" value="停用"></el-option>
+							<el-select v-model="TShopstore.merState" placeholder="状态" class="handle-select mr10">
+								<el-option key="0" label="正常" value="0"></el-option>
+								<el-option key="1" label="停用" value="1"></el-option>
 								
 								
 							</el-select>
@@ -160,25 +160,25 @@
 						</el-col>
 						<el-col :span="5">
 							<el-form-item label="联系人" :label-width="formLabelWidth">
-								<el-input v-model="TMerchant.merContacts" size="small" clearable></el-input>
+								<el-input v-model="TShopstore.merContacts" size="small" clearable></el-input>
 							</el-form-item>
 						
 							
 							
 							
 							<el-form-item label="联系电话" :label-width="formLabelWidth">
-								<el-input size="small" v-model="TMerchant.merPhone"></el-input>
+								<el-input size="small" v-model="TShopstore.merPhone"></el-input>
 							</el-form-item>
 							<el-form-item label="主营商品" :label-width="formLabelWidth">
-								<el-input v-model="TMerchant.merMain" size="small" clearable></el-input>
+								<el-input v-model="TShopstore.merMain" size="small" clearable></el-input>
 							</el-form-item>
 							
 							<el-form-item label="证件号码" :label-width="formLabelWidth">
-								<el-input v-model="TMerchant.merCard" size="small" clearable></el-input>
+								<el-input v-model="TShopstore.merCard" size="small" clearable></el-input>
 							</el-form-item>
 							
 							<el-form-item label="地址" :label-width="formLabelWidth">
-								<el-input size="small" v-model="TMerchant.merAddress" style="width: 250px;"></el-input>
+								<el-input size="small" v-model="TShopstore.merAddress" style="width: 250px;"></el-input>
 							</el-form-item>
 				
 						</el-col>
@@ -189,7 +189,7 @@
 						<el-col :span="5">
 				
 							<el-form-item label="备注" :label-width="formLabelWidth">
-								<el-input v-model="TMerchant.merMarket" size="small" type="textarea" style="width: 500px;"></el-input>
+								<el-input v-model="TShopstore.merMarket" size="small" type="textarea" style="width: 500px;"></el-input>
 							</el-form-item>
 				
 						</el-col>
@@ -202,17 +202,17 @@
 				</el-form>
 				<template #footer>
 					<span class="dialog-footer">
-						<el-button @click="tMerchant.dialogVisible1 = false;productallsel()">关 闭</el-button>
+						<el-button @click="tShopstore.dialogVisible1 = false;productallsel()">关 闭</el-button>
 						
 						<el-button type="primary" @click="update(1)">修改</el-button>
 					</span>
 				</template>
 			</el-dialog>
-			<el-table :data="tMerchant.tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header"
+			<el-table :data="tShopstore.tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header"
 			 :header-cell-style="{background:'#f8f8f9',color:'#606266'}" @selection-change="handleSelectionChange">
 				<el-table-column type="selection">
 				</el-table-column>
-				<el-table-column prop="merName" label="商户名"></el-table-column>
+				<el-table-column prop="stoName" label="商铺名"></el-table-column>
 				<el-table-column prop="merId" label="商户编号"></el-table-column>
 				<el-table-column prop="merType" label="类别"></el-table-column>
 				<el-table-column prop="merContacts" label="联系人"></el-table-column>
@@ -220,13 +220,13 @@
 				<el-table-column prop="merCard" label="证件号码"></el-table-column>
 				<el-table-column label="状态">
 				<template #default="scope">
-					<p v-if="tMerchant.tableData[scope.$index].merState == 0">正常</p>
-					<p v-if="tMerchant.tableData[scope.$index].merState == 1">禁用</p>
+					<p v-if="tShopstore.tableData[scope.$index].merState == 0">正常</p>
+					<p v-if="tShopstore.tableData[scope.$index].merState == 1">禁用</p>
 				</template>
 				</el-table-column>
 				<el-table-column label="操作" width="180" align="center">
 					<template #default="scope">
-						<el-button type="text" icon="el-icon-edit" @click="TMerchant=scope.row;tMerchant.dialogVisible1=true">编辑
+						<el-button type="text" icon="el-icon-edit" @click="TShopstore=scope.row;tShopstore.dialogVisible1=true">编辑
 						</el-button>
 						
 					</template>
@@ -234,8 +234,8 @@
 			</el-table>
 			<div class="block">
 				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-					:page-sizes="[10,20,40,80]" :page-size="tMerchant.pageParam.pageSize"
-					layout="total, sizes, prev, pager, next, jumper" :total="tMerchant.tableTotal">
+					:page-sizes="[10,20,40,80]" :page-size="tShopstore.pageParam.pageSize"
+					layout="total, sizes, prev, pager, next, jumper" :total="tShopstore.tableTotal">
 				</el-pagination>
 			</div>
 		</div>
@@ -273,8 +273,8 @@
 					merType:'中小企业租户'
 				},
 				],
-				TMerchant:{},
-				tMerchant: {
+				TShopstore:{},
+				tShopstore: {
 					dialogVisible: false,
 					dialogVisible1: false,
 					searchInput: '',
@@ -293,9 +293,9 @@
 		
 			searchCondition() {
 				return {
-					"merId": this.tMerchant.searchInput,
-					"merName": this.tMerchant.searchInput,
-					"merType": this.tMerchant.searchInput,
+					
+					"merName": this.tShopstore.searchInput,
+					"merType": this.tShopstore.searchInput,
 					
 				}
 			}
@@ -303,7 +303,7 @@
 
 		methods: {
 			handleSizeChange(val) {
-				this.tMerchant.pageParam.pageSize = val
+				this.tShopstore.pageParam.pageSize = val
 			
 				if (this.queryType == 'all')
 					this.findMerchant()
@@ -313,7 +313,7 @@
 					this.handleScreen()
 			},
 			handleCurrentChange(val) {
-				this.tMerchant.pageParam.pageNum = val
+				this.tShopstore.pageParam.pageNum = val
 			
 				if (this.queryType == 'all')
 					this.findMerchant()
@@ -327,15 +327,15 @@
 				
 				
 			
-				var screenForm = Object.assign(this.searchCondition,this.tMerchant.pageParam)
+				var screenForm = Object.assign(this.searchCondition,this.tShopstore.pageParam)
 				console.log(this.screenForm)
 				this.axios({
-					url: "http://127.0.0.1:8080/Property/tMerchant/search",
+					url: "http://127.0.0.1:8080/Property/tShopstore/search",
 					method: "get",
 					params: screenForm
 				}).then(response => {
-					this.tMerchant.tableData = response.data.list
-					this.tMerchant.tableTotal = response.data.total
+					this.tShopstore.tableData = response.data.list
+					this.tShopstore.tableTotal = response.data.total
 				}).catch(error => {
 			
 				})
@@ -353,7 +353,7 @@
 				
 				this.axios({
 					
-					url:'http://127.0.0.1:8080/Property/tMerchant/batch',
+					url:'http://127.0.0.1:8080/Property/tShopstore/batch',
 					method:'put',
 					data:jingyong
 				}).then(response=>{
@@ -376,7 +376,7 @@
 				})
 				this.axios({
 					
-					url:'http://127.0.0.1:8080/Property/tMerchant/batch',
+					url:'http://127.0.0.1:8080/Property/tShopstore/batch',
 					method:'put',
 					data:qinyong
 				}).then(response=>{
@@ -391,18 +391,18 @@
 				})
 			},
 			productallsel(){
-				this.TMerchant={}
+				this.TShopstore={}
 			},
 			handleSelectionChange(val){
 				console.log(val)
 				this.liststate=val
 			},
 			add(number) {
-				if(this.TMerchant.merName!=''&&this.TMerchant.merName!=null&&this.TMerchant.merType!=''&&this.TMerchant.merType!=null){
+				if(this.TShopstore.merName!=''&&this.TShopstore.merName!=null&&this.TShopstore.merType!=''&&this.TShopstore.merType!=null){
 				this.axios({
-					url: 'http://127.0.0.1:8080/Property/tMerchant',
+					url: 'http://127.0.0.1:8080/Property/tShopstore',
 					method: 'post',
-					data: this.TMerchant
+					data: this.TShopstore
 				}).then(response => {
 					if(number==1){
 					this.$message({
@@ -416,7 +416,7 @@
 					this.productallsel()
 					this.findMerchant()
 				if(number==1) {
-				this.tMerchant.dialogVisible=false
+				this.tShopstore.dialogVisible=false
 					}
 				}).catch(error => {
 					
@@ -430,11 +430,11 @@
 				
 			},
 			update(number) {
-				if(this.TMerchant.merName!=''&&this.TMerchant.merName!=null&&this.TMerchant.merType!=''&&this.TMerchant.merType!=null){
+				if(this.TShopstore.merName!=''&&this.TShopstore.merName!=null&&this.TShopstore.merType!=''&&this.TShopstore.merType!=null){
 				this.axios({
-					url: 'http://127.0.0.1:8080/Property/tMerchant',
+					url: 'http://127.0.0.1:8080/Property/tShopstore',
 					method: 'put',
-					data: this.TMerchant
+					data: this.TShopstore
 				}).then(response => {
 					if(number==1){
 					this.$message({
@@ -448,7 +448,7 @@
 					this.productallsel()
 					this.findMerchant()
 				if(number==1) {
-				this.tMerchant.dialogVisible1=false
+				this.tShopstore.dialogVisible1=false
 					}
 				}).catch(error => {
 					
@@ -464,13 +464,13 @@
 			findMerchant() {
 				this.queryType = 'all'
 				this.axios({
-					url: "http://127.0.0.1:8080/Property/tMerchant/search",
+					url: "http://127.0.0.1:8080/Property/tShopstore/search",
 					method: 'get',
-					params: this.tMerchant.pageParam
+					params: this.tShopstore.pageParam
 				}).then((response) => {
 					console.log(response.data.list)
-					this.tMerchant.tableData = response.data.list
-					this.tMerchant.tableTotal = response.data.total
+					this.tShopstore.tableData = response.data.list
+					this.tShopstore.tableTotal = response.data.total
 				}).catch((error) => {
 
 				})

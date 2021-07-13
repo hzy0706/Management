@@ -8,7 +8,7 @@
 					</div>
 					<div class="ivn-page-header-row">
 						<div class="ivu-page-header-content">
-							费项设定
+							公摊费项
 						</div>
 					</div>
 				</div>
@@ -18,8 +18,6 @@
     <div>
 		<div class="container">
 			<div class="handle-box" style="margin-left:0px">
-                <el-input v-model="pageInfo.value" placeholder="楼盘名称或者收费方式" class="handle-input mr10"></el-input>
-				<el-button type="primary" style="width: 75px;height: 15px;" icon="el-icon-search" @click="handleSearch()"></el-button>			
 				<el-button @click="Ctxz.dialogTableVisible = true;isAdd = true;formData = {}" type="primary" icon="el-icon-plus" style="margin-left: 575px;">
 					新增
 				</el-button>
@@ -35,8 +33,8 @@
 						  </el-form-item>
 						</el-col>
 						<el-col :span="10">
-						  <el-form-item label="费项名称" prop="ctName">
-							<el-input v-model="formData.ctName" placeholder="请输入费项名称" clearable :style="{width: '100%'}">
+						  <el-form-item label="费项名称" prop="gName">
+							<el-input v-model="formData.gname" placeholder="请输入费项名称" clearable :style="{width: '100%'}">
 							</el-input>
 						  </el-form-item>
 						</el-col>
@@ -49,45 +47,23 @@
 						  </el-form-item>
 						</el-col>
 						<el-col :span="10">
-						  <el-form-item label="单价" prop="ctSubtotal">
-							<el-input v-model="formData.ctSubtotal" placeholder="请输入单价" clearable :style="{width: '100%'}">
+						  <el-form-item label="单价" prop="gsubtotal">
+							<el-input v-model="formData.gsubtotal" placeholder="请输入单价" clearable :style="{width: '100%'}">
 							</el-input>
 						  </el-form-item>
 						</el-col>
+						
 						<el-col :span="10">
-						  <el-form-item label="允许改价" prop="ifprice">
-							<el-select v-model="formData.ifprice" placeholder="请选择允许改价" clearable :style="{width: '100%'}">
-							  <el-option v-for="(item, index) in ifpriceOptions" :key="index" :label="item.label"
-								:value="item.value" :disabled="item.disabled"></el-option>
-							</el-select>
-						  </el-form-item>
-						</el-col>
-						<el-col :span="10">
-						  <el-form-item label="收费周期" prop="ctChargecycle">
-							<el-input v-model="formData.ctChargecycle" placeholder="1" :disabled='true' clearable
+						  <el-form-item label="收费周期" prop="gchargecycle">
+							<el-input v-model="formData.gchargecycle" placeholder="1" :disabled='true' clearable
 							  :style="{width: '100%'}">
 							  <template slot="append">(月)</template>
 							</el-input>
 						  </el-form-item>
 						</el-col>
-						<el-col :span="10">
-						  <el-form-item label="关联费项" prop="ctrelation">
-							<el-select v-model="formData.ctrelation" placeholder="请选择关联费项" clearable
-							  :style="{width: '100%'}"></el-select>
-						  </el-form-item>
-						</el-col>
-						<el-col :span="10">
-						  <el-form-item label="超期天数" prop="overdue">
-							<el-input v-model="formData.overdue" placeholder="请输入超期天数" clearable :style="{width: '100%'}">
-							</el-input>
-						  </el-form-item>
-						</el-col>
-						<el-col :span="30">
-							<el-form-item label="滞纳金比率" prop="overduefine">
-							  <el-input v-model="formData.overduefine" placeholder="请输入滞纳金比率" clearable :style="{width: '100%'}">
-							  </el-input>
-							</el-form-item>
-						  </el-col>
+						
+						
+						
 					  </el-form>
 					</el-row>
 					<div slot="footer">
@@ -101,39 +77,19 @@
 				:header-cell-style="{background:'#f8f8f9',color:'#606266'}">
                 <el-table-column type="selection"> </el-table-column>
 				<el-table-column prop="residenceName" label="所属楼盘"></el-table-column>
-				<el-table-column label="费项编号" prop="ctId">
+				<el-table-column label="费项编号" prop="gid">
 					
 				</el-table-column>
 				
-				<el-table-column prop="ctName" label="费项名称"></el-table-column>
-                <el-table-column prop="chco" label="收费方式"></el-table-column>
-                <el-table-column prop="ctSubtotal" label="单价"></el-table-column>
+				<el-table-column prop="gname" label="费项名称"></el-table-column>
+                <el-table-column prop="gsubtotal" label="单价"></el-table-column>
+               <el-table-column prop="chco" label="收费方式"></el-table-column>
                
-                <el-table-column label="允许改价" prop="ifprice">
-                    <template #default="scope">
-                      <p v-if="tableData[scope.$index].ifprice == 0">是</p>
-                      <p v-if="tableData[scope.$index].ifprice == 1">否</p>
-                    </template>
-                </el-table-column>
-                <el-table-column prop="ctChargecycle" label="收费周期"></el-table-column>
-                <el-table-column prop="ctRelation" label="关联费项"></el-table-column>
-                <el-table-column prop="overduefine" label="滞纳金比率"></el-table-column>
-                <el-table-column prop="overdue" label="超期天数"></el-table-column>   
-				<el-table-column label="操作" width="180" align="center">
-					<template #default="scope">
-						<el-button
-						  type="text" @click="redact(scope.$index,scope.row);Ctxz.dialogTableVisible = true"
-						  >编辑</el-button 
-						>
-						&nbsp;
-						<el-button
-						  type="text"
-						  style="color: red"
-						  @click="dele(scope.row.ctId)"
-						  >删除</el-button
-						>
-					  </template>
-				</el-table-column>
+                <el-table-column prop="gchargecycle" label="收费周期"></el-table-column>
+              
+               
+               
+				
 			</el-table>
 			<br/>
 			<div class="block">
@@ -157,9 +113,9 @@
 					currentPage: 1,
 					pagesize: 10,
 					ctName: '',         //费项名称
-					ctChargecycle:'',   //收费周期
+					gchargecycle:'',   //收费周期
                     ctRelation:'',      //关联费项
-					ctSubtotal:'',      //单价  
+					gsubtotal:'',      //单价  
                     overdue:'',         //超期天数
                     overduefine:'',     //滞纳金比率
                     chco:'',            //收费方式
@@ -174,12 +130,12 @@
 				tableData:[],
 				formData: {
 					residenceName: "",
-					ctName: undefined,
+					gname: undefined,
 					chco: "",
-					ctSubtotal: undefined,
+					gsubtotal: undefined,
 					ifprice: "否",
-					ctChargecycle: 1,
-					ctRelation: "",
+					gchargecycle: 1,
+					ctrelation: "",
 					overdue: undefined,
 					overduefine:''
 				},
@@ -259,51 +215,14 @@
 			}
 		},
 		computed: {
-			searchCondition(){	
-				return{
-					residenceName: this.pageInfo.value,
-					chco: this.pageInfo.value
-				}
-			}
 		},
 		watch: {},
 		
 		methods: {
-			dele(val){
-				// alert(val)
-				
-				this.$confirm('此操作将会删除该数据且不能撤回，是否继续？','提示',{
-					confirmButtonTest:'确定',
-					cancelButtonTest:'取消',
-					type:'warning'
-				}).then(() => {
-					this.axios({
-						url:"http://localhost:8080/Property/tCostitem",
-						method:'Delete',
-						params:{"id":val}
-					}).then(response => {
-						this.loadData()
-						this.$message({
-							type:"success",
-							message:'删除成功'
-						})
-					}).catch(() => {
-						this.message({
-							type:"info",
-							message:'已取消操作'
-						})
-					})
-				})
-			},
-			redact(a,b){
-				this.formData = b;
-				this.isAdd = false
-				console.log(b)
-			},
 			refuel(){
-				if(this.isAdd){
+				
 					this.axios({
-						url:"http://localhost:8080/Property/tCostitem",
+						url:"http://localhost:8080/Property/tGongtang",
 						method:'post',
 						data:this.formData
 					}).then(response =>{
@@ -315,21 +234,7 @@
 					}).catch(error => {
 
 					})
-				}else{
-					this.axios({
-						url:"http://localhost:8080/Property/tCostitem",
-						method:'put',
-						data:this.formData
-					}).then(response =>{
-						this.$message({
-						type: 'success',
-						message: '修改成功！',
-						})
-						this.loadData();
-					}).catch(error => {
-
-					})
-				}
+				
 				
 			},
 			onOpen() {},
@@ -356,7 +261,7 @@
 			},
             loadData(){
 				this.axios({
-					url:"http://localhost:8080/Property/tCostitem",
+					url:"http://localhost:8080/Property/tGongtang",
 					method:'get',
 					params:this.pageParam
 				}).then((response) =>{
@@ -368,20 +273,7 @@
 
 				}) 
 			},
-			handleSearch() {
-				var searchForm =Object.assign(this.searchCondition,this.pageParam)
-				
-				this.axios({
-					url:"http://localhost:8080/Property/tCostitem/search",
-					method:'get',
-					params:searchForm
-				}).then((response) =>{
-					this.tableData = response.data.list
-					this.total = response.data.total
-				}).catch((error) =>{
-
-				})
-			}
+			
 		},
         created(){
             this.loadData();

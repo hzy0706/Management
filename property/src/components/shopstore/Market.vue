@@ -165,7 +165,7 @@
 							</el-form-item>
 							
 							<el-form-item label="收费面积" :label-width="formLabelWidth">
-								<el-input v-model="TSellContract.sellAcre" size="small" clearable></el-input>
+								<el-input v-model="TSellContract.sellAcre" size="small" @change="jisuan()" clearable></el-input>
 							</el-form-item>
 							
 							
@@ -175,10 +175,11 @@
 						
 						<el-col :span="5">
 							<el-form-item label="单价(m)" :label-width="formLabelWidth">
-								<el-input size="small" v-model="TSellContract.sellUnitprice"></el-input>
+								<el-input size="small" v-model="TSellContract.sellUnitprice"  @change="jisuan()"></el-input>
 							</el-form-item>
-							<el-form-item label="租期(月)" :label-width="formLabelWidth">
-								<el-input size="small" v-model="TSellContract.sellTenterm" disabled></el-input>
+							
+							<el-form-item label="总额" :label-width="formLabelWidth">
+								<el-input size="small" v-model="TSellContract.sellPrice" disabled></el-input>
 							</el-form-item>
 
 
@@ -208,7 +209,7 @@
 			 :header-cell-style="{background:'#f8f8f9',color:'#606266'}" @selection-change="handleSelectionChange">
 				<el-table-column label="操作" width="150">
 					<template #default="scope">
-						<el-button type="text" icon="el-icon-edit" @click="tSellContract.fangjianVisible=true;TSellContract=scope.row">房间租金明细
+						<el-button type="text" icon="el-icon-edit" @click="tSellContract.fangjianVisible=true;TSellContract=scope.row;jisuan()">房间租金明细
 						</el-button>
 
 
@@ -241,7 +242,13 @@
 				<el-table-column prop="tmerchant.merCardtype" label="证件类型"></el-table-column>
 				<el-table-column prop="tmerchant.merCard" label="证件号码"></el-table-column>
 				<el-table-column prop="tmerchant.merMarket" label="备注"></el-table-column>
-				<el-table-column prop="" label="创建人"></el-table-column>
+				<el-table-column prop="" label="审核">
+					<template #default="scope">
+						<el-button type="text" icon="el-icon-edit" @click="shenhe(scope.row.sellId)" v-if="tSellContract.tableData[scope.$index].sellAudit == 0">审核
+						</el-button>
+		
+					</template>
+				</el-table-column>
 			</el-table>
 			<div class="block">
 				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes="[10,20,40,80]"
@@ -292,6 +299,7 @@
 						"pageSize": 10
 					}
 				},
+				sellidid:'',
 				TSellContract: {},
 				tSellContract: {
 					fangjianVisible: false,
@@ -319,15 +327,35 @@
 					
 
 				}
+			},
+			searchjin() {
+				return {
+					"merState": 0,
+					
+					
+			
+				}
+			},
+			searchshen() {
+				return {
+					"sellAudit": 1,
+					"sellId":this.sellidid,
+					
+			
+				}
 			}
 		},
 
 		methods: {
+			jisuan() {
+				this.TSellContract.sellPrice=this.TSellContract.sellUnitprice*this.TSellContract.sellAcre
+			},
 			clickEmployeeSelect() {
+				var screenForm = Object.assign(this.searchjin, this.tMerchant.pageParam)
 				this.axios({
 					url: "http://127.0.0.1:8080/Property/tMerchant/search",
 					method: 'get',
-					params: this.tMerchant.pageParam
+					params: screenForm
 				}).then((response) => {
 					console.log(response.data.list)
 					this.tMerchant.tableData = response.data.list
@@ -463,6 +491,7 @@
 			update(number) {
 			
 					console.log(this.TSellContract)
+					if(this.TSellContract.sellAudit==0) {
 					this.axios({
 						url: 'http://127.0.0.1:8080/Property/tSellContract',
 						method: 'put',
@@ -487,10 +516,40 @@
 					}).catch(error => {
 
 					})
+					}else{
+						
+						this.$message({
+							type: 'warning',
+							message: '审核后无法修改！'
+						})
+					}
 				
 
 			},
+			shenhe(aa) {
+				this.sellidid=aa
+				var screenForm = Object.assign(this.searchshen)
+				console.log(screenForm)
+				this.axios({
+					url: 'http://127.0.0.1:8080/Property/tSellContract',
+					method: 'put',
+					data: screenForm
+				}).then(response => {
+					
+						this.$message({
+							type: 'success',
+							message: '审核成功！'
+						})
+						this.sellidid=''
+					this.findMerchant()
+				
+				}).catch(error => {
+				
+				})
+				
+			},
 			updatemode(number) {
+				if(this.TSellContract.sellAudit==0){
 				if (this.TSellContract.sellTime != '' && this.TSellContract.sellTime != null && this.TSellContract.sellId !=
 					'' && this.TSellContract.sellId != null && this.TSellContract.sellContact != '' && this.TSellContract.sellContact !=
 					null && this.TSellContract.sellPhone !=
@@ -521,9 +580,16 @@
 			
 					})
 				} else {
+					this.productallsel()
 					this.$message({
 						type: 'warning',
 						message: '必填未填！'
+					})
+				}
+				}else{
+					this.$message({
+						type: 'warning',
+						message: '审核成功无法修改！'
 					})
 				}
 			

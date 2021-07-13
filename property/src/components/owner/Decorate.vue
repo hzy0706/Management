@@ -58,6 +58,12 @@
 				<el-table-column prop="approvalName" label="审批人员" align="center"></el-table-column>
 				<el-table-column prop="approvalDate" label="审批时间" align="center"></el-table-column>
 				<el-table-column prop="decorateType" label="装修类型" align="center"></el-table-column>
+				<el-table-column label="操作" align="center">
+					<template #default="scope">
+						<el-button @click="findDecorate(scope.row)" type="text" size="small">查看详情
+						</el-button>
+					</template>
+				</el-table-column>
 			</el-table>
 			<div class="block">
 				<!-- 分页 -->
@@ -68,211 +74,6 @@
 			</div>
 		</div>
 	</div>
-	<el-dialog title="新增业主装修" v-model="dialogVisible" width="50%" :before-close="handleClose">
-		<el-form :model="Decorate" label-width="100px" class="demo-ruleForm">
-			<el-form-item label="住宅">
-				<el-select v-model="Decorate.rid" placeholder="请选择" @change="selectAllTBuildingByRid()">
-					<el-option v-for="item in residenceData" :key="item.residenceId" :label="item.residenceName"
-						:value="item.residenceId">
-					</el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item label="楼宇">
-				<el-select v-model="Decorate.bid" placeholder="请选择" @change="selectAllTUnitByBid()">
-					<el-option v-for="item in buildingData" :key="item.buildingId" :label="item.buildingName"
-						:value="item.buildingId">
-					</el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item label="单元">
-				<el-select v-model="Decorate.uid" placeholder="请选择" @change="selectAllTHouseByUid()">
-					<el-option v-for="item in unitData" :key="item.unitId" :label="item.unitName" :value="item.unitId">
-					</el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item label="房间">
-				<el-select v-model="Decorate.houseId" placeholder="请选择" @change="selectTOwnerHouseByHouseId()">
-					<el-option v-for="item in houseData2" :key="item.houseId" :label="item.houseName"
-						:value="item.houseId">
-					</el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item label="申请人">
-				<el-input v-model="Decorate.applyName"></el-input>
-			</el-form-item>
-			<el-form-item label="联系电话">
-				<el-input v-model="Decorate.decoratePhone"></el-input>
-			</el-form-item>
-			<el-form-item label="装修类别">
-				<el-select v-model="Decorate.decorateType" placeholder="请选择装修类别">
-					<el-option label="业主录入" value="业主录入"></el-option>
-					<el-option label="物业录入" value="物业录入"></el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item label="申请时间">
-				<el-input type="date" v-model="Decorate.applyDate"></el-input>
-			</el-form-item>
-			<el-form-item label="装修内容">
-				<el-input v-model="Decorate.decorateContent"></el-input>
-			</el-form-item>
-			<el-form-item>
-				<el-button type="primary" @click="addDecorate()">保存</el-button>
-			</el-form-item>
-		</el-form>
-	</el-dialog>
-	<el-dialog title="审核/编辑/删除装修信息" v-model="dialogVisible2" width="50%" :before-close="handleClose">
-		<el-form :model="Decorate" label-width="100px" class="demo-ruleForm">
-			<el-form-item label="申请人">
-				<el-input v-model="Decorate.applyName"></el-input>
-			</el-form-item>
-			<el-form-item label="联系电话">
-				<el-input v-model="Decorate.decoratePhone"></el-input>
-			</el-form-item>
-			<el-form-item label="装修类别">
-				<el-select v-model="Decorate.decorateType" placeholder="请选择装修类别" disabled="disabled">
-					<el-option label="业主录入" value="业主录入"></el-option>
-					<el-option label="物业录入" value="物业录入"></el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item label="申请时间">
-				<el-input type="date" v-model="Decorate.applyDate"></el-input>
-			</el-form-item>
-			<el-form-item label="装修内容">
-				<el-input v-model="Decorate.decorateContent"></el-input>
-			</el-form-item>
-			<el-form-item label="装修保证金">
-				<el-input v-model="Decorate.decorateBail"></el-input>
-			</el-form-item>
-			<el-form-item label="审批意见">
-				<el-input v-model="Decorate.approvalSuggest"></el-input>
-			</el-form-item>
-			<el-form-item>
-				<el-button type="primary" @click="updateDecorate()">保存</el-button>
-				<el-button type="danger" @click="deleteDecorate()">删除</el-button>
-				<el-button type="warning" @click="appDecorate()">审核</el-button>
-			</el-form-item>
-		</el-form>
-	</el-dialog>
-	<el-dialog title="验收/作废装修信息" v-model="dialogVisible3" width="50%" :before-close="handleClose">
-		<el-form :model="Decorate" label-width="100px" class="demo-ruleForm">
-			<el-form-item label="申请人">
-				<el-input v-model="Decorate.applyName" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="联系电话">
-				<el-input v-model="Decorate.decoratePhone" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="装修类别">
-				<el-select v-model="Decorate.decorateType" placeholder="请选择装修类别" disabled="disabled">
-					<el-option label="业主录入" value="业主录入"></el-option>
-					<el-option label="物业录入" value="物业录入"></el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item label="申请时间">
-				<el-input type="date" v-model="Decorate.applyDate" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="装修内容">
-				<el-input v-model="Decorate.decorateContent" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="装修保证金">
-				<el-input v-model="Decorate.decorateBail" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="审批意见">
-				<el-input v-model="Decorate.approvalSuggest" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="施工单位">
-				<el-input v-model="Decorate.buildUnit"></el-input>
-			</el-form-item>
-			<el-form-item label="负责人">
-				<el-input v-model="Decorate.buildName"></el-input>
-			</el-form-item>
-			<el-form-item label="负责人电话">
-				<el-input v-model="Decorate.buildPhone"></el-input>
-			</el-form-item>
-			<el-form-item label="施工开始日期">
-				<el-input type="date" v-model="Decorate.buildStartDate"></el-input>
-			</el-form-item>
-			<el-form-item label="施工结束日期">
-				<el-input type="date" v-model="Decorate.buildEndDate"></el-input>
-			</el-form-item>
-			<el-form-item label="验收人">
-				<el-input v-model="Decorate.checkName"></el-input>
-			</el-form-item>
-			<el-form-item label="验收时间">
-				<el-input type="date" v-model="Decorate.checkDate"></el-input>
-			</el-form-item>
-			<el-form-item label="验收意见">
-				<el-input v-model="Decorate.checkSuggest"></el-input>
-			</el-form-item>
-			<el-form-item label="违约金">
-				<el-input v-model="Decorate.penaltyMoney"></el-input>
-			</el-form-item>
-			<el-form-item label="备注">
-				<el-input v-model="Decorate.decorateRemark"></el-input>
-			</el-form-item>
-			<el-form-item>
-				<el-button type="primary" @click="processDecorate()">验收</el-button>
-				<el-button type="danger" @click="inidedDecorate()">作废</el-button>
-			</el-form-item>
-		</el-form>
-	</el-dialog>
-	<el-dialog title="查看装修详情" v-model="dialogVisible4" width="50%" :before-close="handleClose">
-		<el-form :model="Decorate" label-width="100px" class="demo-ruleForm">
-			<el-form-item label="申请人">
-				<el-input v-model="Decorate.applyName" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="联系电话">
-				<el-input v-model="Decorate.decoratePhone" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="装修类别">
-				<el-select v-model="Decorate.decorateType" placeholder="请选择装修类别" disabled="disabled">
-					<el-option label="业主录入" value="业主录入"></el-option>
-					<el-option label="物业录入" value="物业录入"></el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item label="申请时间">
-				<el-input type="date" v-model="Decorate.applyDate" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="装修内容">
-				<el-input v-model="Decorate.decorateContent" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="装修保证金">
-				<el-input v-model="Decorate.decorateBail" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="审批意见">
-				<el-input v-model="Decorate.approvalSuggest" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="施工单位">
-				<el-input v-model="Decorate.buildUnit" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="负责人">
-				<el-input v-model="Decorate.buildName" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="负责人电话">
-				<el-input v-model="Decorate.buildPhone" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="施工开始日期">
-				<el-input type="date" v-model="Decorate.buildStartDate" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="施工结束日期">
-				<el-input type="date" v-model="Decorate.buildEndDate" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="验收人">
-				<el-input v-model="Decorate.checkName" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="验收时间">
-				<el-input type="date" v-model="Decorate.checkDate" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="验收意见">
-				<el-input v-model="Decorate.checkSuggest" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="违约金">
-				<el-input v-model="Decorate.penaltyMoney" disabled="disabled"></el-input>
-			</el-form-item>
-			<el-form-item label="备注">
-				<el-input v-model="Decorate.decorateRemark" disabled="disabled"></el-input>
-			</el-form-item>
-		</el-form>
-	</el-dialog>
 </template>
 
 <script>
@@ -290,46 +91,7 @@
 					value:''
 				},
 				tableData:[],
-				residenceData: [],
-				buildingData: [],
-				unitData: [],
-				houseData2: [],
-				dialogVisible:false,
-				dialogVisible2:false,
-				dialogVisible3:false,
-				dialogVisible4:false,
-				Decorate:{
-					decorateId:'',
-					houseId:'',
-					decorateType:'',
-					applyName:'',
-					decoratePhone:'',
-					createName:'',
-					createDate:'',
-					decorateState:'',
-					decorateContent:'',
-					decorateBail:'',
-					approvalSuggest:'',
-					approvalName:'',
-					approvalDate:'',
-					buildUnit:'',
-					buildName:'',
-					buildPhone:'',
-					buildStartDate:'',
-					buildEndDate:'',
-					checkName:'',
-					checkDate:'',
-					checkSuggest:'',
-					penaltyMoney:'',
-					cancelName:'',
-					cancelDate:'',
-					decorateRemark:'',
-					houseName:'',
-					applyDate:'',
-					rid:'',
-					bid:'',
-					uid:''
-				},
+				Decorate:{},
 			}
 		},
 		created() {
@@ -338,283 +100,24 @@
 		methods: {
 			controller(row){
 				if(row.decorateState==0){
-					this.Decorate.decorateId = row.decorateId;
-					this.Decorate.decorateType = row.decorateType;
-					this.Decorate.applyName = row.applyName;
-					this.Decorate.decoratePhone = row.decoratePhone;
-					this.Decorate.applyDate = row.applyDate;
-					this.Decorate.houseName = row.houseName;
-					this.Decorate.houseId = row.houseId;
-					this.Decorate.decorateContent = row.decorateContent;
-					this.dialogVisible2=true;
+					this.$router.push("/updateDecorate");
+					sessionStorage.setItem("name", JSON.stringify(row));
 				}
 				if(row.decorateState==1){
-					this.Decorate.decorateId = row.decorateId;
-					this.Decorate.decorateType = row.decorateType;
-					this.Decorate.applyName = row.applyName;
-					this.Decorate.decoratePhone = row.decoratePhone;
-					this.Decorate.applyDate = row.applyDate;
-					this.Decorate.houseName = row.houseName;
-					this.Decorate.houseId = row.houseId;
-					this.Decorate.decorateContent = row.decorateContent;
-					this.Decorate.decorateBail = row.decorateBail;
-					this.Decorate.approvalSuggest = row.approvalSuggest;
-					this.Decorate.approvalDate=row.approvalDate;
-					this.Decorate.approvalName=row.approvalName;
-					this.dialogVisible3=true;
+					this.$router.push("/appDecorate");
+					sessionStorage.setItem("name", JSON.stringify(row));
 				}
 				if(row.decorateState==2 || row.decorateState==3){
-					this.Decorate.decorateId = row.decorateId;
-					this.Decorate.decorateType = row.decorateType;
-					this.Decorate.applyName = row.applyName;
-					this.Decorate.decoratePhone = row.decoratePhone;
-					this.Decorate.applyDate = row.applyDate;
-					this.Decorate.houseName = row.houseName;
-					this.Decorate.houseId = row.houseId;
-					this.Decorate.decorateContent = row.decorateContent;
-					this.Decorate.decorateBail = row.decorateBail;
-					this.Decorate.approvalSuggest = row.approvalSuggest;
-					this.Decorate.approvalDate=row.approvalDate;
-					this.Decorate.approvalName=row.approvalName;
-					this.Decorate.buildUnit=row.buildUnit;
-					this.Decorate.buildName=row.buildName;
-					this.Decorate.buildPhone=row.buildPhone;
-					this.Decorate.buildStartDate=row.buildStartDate;
-					this.Decorate.buildEndDate=row.buildEndDate;
-					this.Decorate.checkName=row.checkName;
-					this.Decorate.checkDate=row.checkDate;
-					this.Decorate.checkSuggest=row.checkSuggest;
-					this.Decorate.penaltyMoney=row.penaltyMoney;
-					this.Decorate.decorateRemark=row.decorateRemark;
-					this.Decorate.decorateState=row.decorateState;
-					this.Decorate.cancelName=row.cancelName;
-					this.Decorate.cancelDate=row.cancelDate;
-					this.dialogVisible4=true;
+					this.$router.push("/findDecorate");
+					sessionStorage.setItem("name", JSON.stringify(row));
 				}
 			},
-			inidedDecorate(){
-				const _this = this
-				this.Decorate.buildUnit=null;
-				this.Decorate.buildName=null;
-				this.Decorate.buildPhone=null;
-				this.Decorate.buildStartDate=null;
-				this.Decorate.buildEndDate=null;
-				this.Decorate.checkName=null;
-				this.Decorate.checkDate=null;
-				this.Decorate.checkSuggest=null;
-				this.Decorate.penaltyMoney=null;
-				this.Decorate.decorateRemark=null;
-				this.Decorate.decorateState=3;
-				this.Decorate.cancelName='胡志远';
-				var date = new Date();
-				this.Decorate.cancelDate=date;
-				this.axios.put("http://localhost:8080/Property/updateByTDecorateKeySelective", this.Decorate)
-					.then(function(response) {
-						if (response.data.code == 200) {
-							ElMessage.success({
-								message: '作废成功',
-								type: 'success'
-							});
-						} else {
-							ElMessage.error({
-								message: '数据异常,请联系技术部管理员',
-								type: 'success'
-							});
-						}
-						_this.dialogVisible3=false;
-						_this.selectAllTDecorateByState();
-						Object.keys(_this.Decorate).forEach((key) => (_this.Decorate[key] = ''))
-					}).catch(function(error) {
-						console.log(error)
-				})
-			},
-			processDecorate(){
-				const _this = this
-				this.Decorate.decorateState=2;
-				this.axios.put("http://localhost:8080/Property/updateByTDecorateKeySelective",this.Decorate)
-					.then(function(response) {
-						if (response.data.code == 200) {
-							ElMessage.success({
-								message: '验收成功',
-								type: 'success'
-							});
-						} else {
-							ElMessage.error({
-								message: '数据异常,请联系技术部管理员',
-								type: 'success'
-							});
-						}
-						_this.dialogVisible3=false;
-						_this.selectAllTDecorateByState();
-						Object.keys(_this.Decorate).forEach((key) => (_this.Decorate[key] = ''))
-					}).catch(function(error) {
-						console.log(error)
-				})
-			},
-			appDecorate(){
-				const _this = this
-				this.Decorate.decorateState=1;
-				this.Decorate.approvalName='胡志远';
-				var date = new Date();
-				this.Decorate.approvalDate=date;
-				this.axios.put("http://localhost:8080/Property/updateByTDecorateKeySelective",this.Decorate)
-					.then(function(response) {
-						if (response.data.code == 200) {
-							ElMessage.success({
-								message: '审核成功',
-								type: 'success'
-							});
-						} else {
-							ElMessage.error({
-								message: '数据异常,请联系技术部管理员',
-								type: 'success'
-							});
-						}
-						_this.dialogVisible2=false;
-						_this.selectAllTDecorateByState();
-						Object.keys(_this.Decorate).forEach((key) => (_this.Decorate[key] = ''))
-					}).catch(function(error) {
-						console.log(error)
-				})
-			},
-			deleteDecorate(){
-				if(this.Decorate.decorateType == '业主录入'){
-					ElMessage.error({
-						message: '业主录入数据，不允许删除',
-						type: 'success'
-					});
-				}else{
-					const _this = this
-					this.axios.delete("http://localhost:8080/Property/deleteByTDecorateKey/"+this.Decorate.decorateId)
-						.then(function(response) {
-							if (response.data.code == 200) {
-								ElMessage.success({
-									message: '删除成功',
-									type: 'success'
-								});
-							} else {
-								ElMessage.error({
-									message: '数据异常,请联系技术部管理员',
-									type: 'success'
-								});
-							}
-							_this.dialogVisible2=false;
-							_this.selectAllTDecorateByState();
-							Object.keys(_this.Decorate).forEach((key) => (_this.Decorate[key] = ''))
-						}).catch(function(error) {
-							console.log(error)
-					})
-				}
-			},
-			updateDecorate(){
-				if(this.Decorate.decorateType == '业主录入'){
-					ElMessage.error({
-						message: '业主录入数据，不允许修改',
-						type: 'success'
-					});
-				}else{
-					const _this = this
-					this.Decorate.decorateBail=null;
-					this.Decorate.approvalSuggest=null;
-					this.axios.put("http://localhost:8080/Property/updateByTDecorateKeySelective", this.Decorate)
-						.then(function(response) {
-							if (response.data.code == 200) {
-								ElMessage.success({
-									message: '修改成功',
-									type: 'success'
-								});
-							} else {
-								ElMessage.error({
-									message: '数据异常,请联系技术部管理员',
-									type: 'success'
-								});
-							}
-							_this.dialogVisible2=false;
-							_this.selectAllTDecorateByState();
-							Object.keys(_this.Decorate).forEach((key) => (_this.Decorate[key] = ''))
-						}).catch(function(error) {
-							console.log(error)
-					})
-				}
+			findDecorate(row){
+				this.$router.push("/findDecorate");
+				sessionStorage.setItem("name", JSON.stringify(row));
 			},
 			addClick(){
-				this.selectAllTResidence();
-				this.dialogVisible=true;
-			},
-			addDecorate(){
-				const _this = this
-				this.axios.post("http://localhost:8080/Property/addTDecorate", this.Decorate)
-					.then(function(response) {
-						console.log(response)
-						if (response.data.code == 200) {
-							ElMessage.success({
-								message: '添加成功',
-								type: 'success'
-							});
-						} else {
-							ElMessage.error({
-								message: '数据异常,请联系技术部管理员',
-								type: 'success'
-							});
-						}
-						_this.dialogVisible=false;
-						_this.selectAllTDecorateByState();
-						Object.keys(_this.Decorate).forEach((key) => (_this.Decorate[key] = ''))
-					}).catch(function(error) {
-						console.log(error)
-				})
-			},
-			selectAllTResidence() {
-				const _this = this
-				this.axios.get("http://localhost:8080/Property/selectAllTResidence")
-					.then(function(response) {
-						_this.residenceData = response.data.data;
-					}).catch(function(error) {
-						console.log(error)
-					})
-			},
-			selectAllTBuildingByRid() {
-				const _this = this
-				this.axios.get("http://localhost:8080/Property/selectAllTBuildingByRid/" + this.Decorate.rid)
-					.then(function(response) {
-						_this.buildingData = response.data.data;
-					}).catch(function(error) {
-						console.log(error)
-				})
-			},
-			selectAllTUnitByBid() {
-				const _this = this
-				this.axios.get("http://localhost:8080/Property/selectAllTUnitByBid/" + this.Decorate.bid)
-					.then(function(response) {
-						_this.unitData = response.data.data;
-					}).catch(function(error) {
-						console.log(error)
-					})
-			},
-			selectAllTHouseByUid() {
-				const _this = this
-				this.axios.get("http://localhost:8080/Property/selectAllTHouseByUid/" + this.Decorate.uid)
-					.then(function(response) {
-						_this.houseData2 = response.data.data;
-					}).catch(function(error) {
-						console.log(error)
-					})
-			},
-			selectTOwnerHouseByHouseId(){
-				const _this = this
-				this.axios.get("http://localhost:8080/Property/selectTOwnerHouseByHouseId/" + this.Decorate.houseId)
-					.then(function(response) {
-						console.log(response)
-						if(response.data.data != null){
-							_this.Decorate.applyName = response.data.data.towner.ownerName
-							_this.Decorate.decoratePhone = response.data.data.towner.ownerPhone
-						}else{
-							_this.Decorate.applyName =''
-							_this.Decorate.decoratePhone =''
-						}
-					}).catch(function(error) {
-						console.log(error)
-					})
+				this.$router.push("/addDecorate");
 			},
 			selectAllTDecorateByState(){
 				const _this = this
@@ -627,13 +130,6 @@
 					}).catch(function(error) {
 						console.log(error)
 				})
-			},
-			handleClose() {
-				Object.keys(this.Decorate).forEach((key) => (this.Decorate[key] = ''))
-				this.dialogVisible = false;
-				this.dialogVisible2 = false;
-				this.dialogVisible3 = false;
-				this.dialogVisible4 = false;
 			},
 			handleSizeChange(size) {
 				this.pageInfo.pagesize = size;
