@@ -27,6 +27,12 @@ import charge from '../components/charge/charge.vue'
 /* import billList from '../components/charge/billList.vue' */
 import billDetails from '../components/charge/billDetails.vue'
 
+/*商铺管理*/
+import Tenant from '../components/shopstore/Tenant.vue'
+import Lease from '../components/shopstore/Lease.vue'
+import Market from '../components/shopstore/Market.vue'
+import Shop from '../components/shopstore/Shop.vue'
+import Statistics from '../components/shopstore/Statistics.vue'
 
 const routes = [{
 		path: '/',
@@ -162,6 +168,61 @@ const routes = [{
 			showtop: ShowTop,
 			showpanel: billDetails
 
+		}
+	},
+	{
+		path: '/Tenant',
+		name: 'Tenant',
+		components: {
+			
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: Tenant
+	
+		}
+	},
+	{
+		path: '/Lease',
+		name: 'Lease',
+		components: {
+			
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: Lease
+	
+		}
+	},
+	{
+		path: '/Market',
+		name: 'Market',
+		components: {
+			
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: Market
+	
+		}
+	},
+	{
+		path: '/Shop',
+		name: 'Shop',
+		components: {
+			
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: Shop
+	
+		}
+	},
+	{
+		path: '/Statistics',
+		name: 'Statistics',
+		components: {
+			
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: Statistics
+	
 		}
 	},
 	
