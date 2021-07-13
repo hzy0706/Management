@@ -27,35 +27,22 @@
 			</div>
 			<el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header"
 				:header-cell-style="{background:'#f8f8f9',color:'#606266'}">
-				<el-table-column type="index" :index="indexMethod" label="编号">
-				</el-table-column>
-				<el-table-column prop="name" label="用户名"></el-table-column>
-				<el-table-column label="账户余额">
-					<template slot-scope="scope">￥{{scope.row.money}}</template>
-				</el-table-column>
-				<el-table-column label="头像(查看大图)" align="center">
-					<template slot-scope="scope">
-						<el-image class="table-td-thumb" :src="scope.row.thumb" :preview-src-list="[scope.row.thumb]">
-						</el-image>
-					</template>
-				</el-table-column>
-				<el-table-column prop="address" label="地址"></el-table-column>
-				<el-table-column label="状态" align="center">
-					<template slot-scope="scope">
-						<el-tag :type="scope.row.state==='成功'?'success':(scope.row.state==='失败'?'danger':'')">
-							{{scope.row.state}}</el-tag>
-					</template>
-				</el-table-column>
-
-				<el-table-column prop="date" label="注册时间"></el-table-column>
-				<el-table-column label="操作" width="180" align="center">
-					<template slot-scope="scope">
-						<el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">编辑
-						</el-button>
-						<el-button type="text" icon="el-icon-delete" class="red"
-							@click="handleDelete(scope.$index, scope.row)">删除</el-button>
-					</template>
-				</el-table-column>
+				
+				<el-table-column prop="name" label="操作"></el-table-column>
+					<el-table-column prop="name" label="所属楼盘"></el-table-column>
+						<el-table-column prop="name" label="合同编号"></el-table-column>
+						<el-table-column prop="name" label="租户"></el-table-column>
+						<el-table-column prop="name" label="起租日期"></el-table-column>
+						
+						<el-table-column prop="name" label="停租日期"></el-table-column>
+						<el-table-column prop="name" label="租金单价"></el-table-column>
+						<el-table-column prop="name" label="租金计费方式"></el-table-column>
+						<el-table-column prop="name" label="租期"></el-table-column>
+						<el-table-column prop="name" label="收费面积"></el-table-column>
+						<el-table-column prop="name" label="状态"></el-table-column>
+						<el-table-column prop="name" label="租金"></el-table-column>
+						
+				
 			</el-table>
 			<div class="block">
 				<!-- 分页 -->

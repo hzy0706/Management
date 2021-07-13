@@ -4,11 +4,11 @@
 			<div class="el-center-title-content">
 				<div class="ivn-page-header-main">
 					<div class="ivn-page-header-row">
-						<div class="ivu-page-header-title">统计报表</div>
+						<div class="ivu-page-header-title">审核</div>
 					</div>
 					<div class="ivn-page-header-row">
 						<div class="ivu-page-header-content">
-							统计报表
+							审核
 						</div>
 					</div>
 				</div>
