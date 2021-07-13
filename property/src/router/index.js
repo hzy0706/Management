@@ -28,6 +28,8 @@ import Maintain from '../components/owner/Maintain.vue'
 /*收费管理*/
 import charge from '../components/charge/charge.vue'
 import standingBook from '../components/charge/standingBook.vue'
+import bookUpdate from '../components/charge/bookUpdate.vue'
+import billList from '../components/charge/billList.vue'
 
 /*商铺管理*/
 import Tenant from '../components/shopstore/Tenant.vue'
@@ -229,7 +231,30 @@ const routes = [{
 			showpanel: Costitem
 	
 		}
+	},
+	{
+		path: '/bookUpdate',
+		name: 'bookUpdate',
+		components: {
+			
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: bookUpdate
+	
+		}
+	},
+	{
+		path: '/billList',
+		name: 'billList',
+		components: {
+			
+			showleft: ShowLeft,
+			showtop: ShowTop,
+			showpanel: billList
+	
+		}
 	}
+	
 	
 ]
 

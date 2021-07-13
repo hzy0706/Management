@@ -1,6 +1,7 @@
 <!--  -->
 <template>
-  <el-row :gutter="20">
+  <div>
+    <el-row :gutter="20">
     <el-col :span="3"
       ><div class="grid-content bg-purple">
         <el-tree
@@ -11,11 +12,16 @@
         ></el-tree></div
     ></el-col>
 
-    <el-col :span="12" :offset="3"
-      ><div class="grid-content bg-purple">
+    <el-col :span="12" :offset="3">
+      <div class="grid-content bg-purple">
         <el-row :gutter="20">
           <el-col :span="6"
-            ><div>费项名称：<span>{{payItem.ctName}}</span> &nbsp&nbsp&nbsp&nbsp&nbsp 单价:<span>{{payItem.ctSubtotal}}</span></div></el-col
+            ><div>
+              费项名称：<span>{{ payItem.ctName }}</span>
+               单价:<span>{{
+                payItem.ctSubtotal
+              }}</span>
+            </div></el-col
           >
           <el-col :span="6"><div></div></el-col>
         </el-row>
@@ -60,109 +66,45 @@
             </el-select>
           </el-form-item>
 
-          <el-form-item  label="开始时间">
-           <el-input
-           
-              placeholder=""
-             
-              v-model="begin"
-              >中东首栋</el-input
-            >
+          <el-form-item label="开始时间">
+            <el-input placeholder="" v-model="begin">中东首栋</el-input>
           </el-form-item>
 
-          <el-form-item  label="结束时间">
-           <el-input
-           
-              placeholder=""
-            
-              v-model="end"
-              >中东首栋</el-input
-            >
+          <el-form-item label="结束时间">
+            <el-input placeholder="" v-model="end">中东首栋</el-input>
           </el-form-item>
 
-       
-
-              <el-form-item label="台账名称">
-  <el-input
-             
-              v-model="parName"
-              >中东首栋</el-input
-            >
+          <el-form-item label="台账名称">
+            <el-input v-model="parName">中东首栋</el-input>
           </el-form-item>
 
-           <el-form-item label="台账备注">
-  <el-input
-             
-              v-model="parMark"
-              >中东首栋</el-input
-            >
+          <el-form-item label="台账备注">
+            <el-input v-model="parMark">中东首栋</el-input>
           </el-form-item>
 
-           <el-form-item label="创建人">
-  <el-input
-             
-              v-model="man"
-              >中东首栋</el-input
-            >
+          <el-form-item label="创建人">
+            <el-input v-model="man">中东首栋</el-input>
           </el-form-item>
-
 
           <el-form-item>
             <el-button type="primary" @click="createPay">生成台账</el-button>
-
           </el-form-item>
-          <el-form-item label="房间">
-            <!-- <el-select v-model="formInline.region" placeholder="活动区域">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
-            </el-select> -->
-          </el-form-item>
-          <el-form-item label="费用起期">
-            <el-date-picker v-model="value1" type="date" placeholder="选择日期">
-            </el-date-picker>
-          </el-form-item>
-           <el-form-item label="费用止期">
-            <el-date-picker v-model="value1" type="date" placeholder="选择日期">
-            </el-date-picker>
-          </el-form-item>
-        
         </el-form>
-        <el-row type="flex" >
-
-  <el-col :span="6"><div class="grid-content bg-purple-light"> 台账名称<el-input v-model="input" :resize="horizontal"></el-input></div></el-col>
-  <el-col :span="6"><div class="grid-content bg-purple">  <el-button size="mini" round>生成台账</el-button></div></el-col>
-</el-row>
-        
-     
-        
       </div>
-
-      <!-- <dev class="grid-content bg-purple">
-
-
-        <el-table :data="tableData" border style="width: 100%">
-          <el-table-column prop="date" label="日期" width="180">
-          </el-table-column>
-          <el-table-column prop="name" label="姓名" width="180">
-          </el-table-column>
-          <el-table-column prop="address" label="地址"> </el-table-column>
-
-        </el-table> </dev
-    > -->
     </el-col>
-
   </el-row>
+  </div>
+  
 </template>
 
 <script>
 export default {
   data() {
     return {
-
-      begin:"",
-      end:"",
-      parName:"",
-      parMark:"",
+      begin: "",
+      end: "",
+      parName: "",
+      parMark: "",
       data: [
         {
           label: "中东首栋",
@@ -174,14 +116,13 @@ export default {
                 {
                   cid: 1,
                   label: "水电费",
-
                 },
               ],
             },
           ],
         },
       ],
-      man:"",
+      man: "",
       buId: "",
       fId: "",
       rId: "",
@@ -208,16 +149,15 @@ export default {
       },
       floor: [],
       room: [],
-      payItem:{}
+      payItem: {},
     };
   },
   methods: {
-
-    getbegin(data){
-        this.begin =data
+    getbegin(data) {
+      this.begin = data;
     },
-      getend(data){
-      this.end =data
+    getend(data) {
+      this.end = data;
     },
     handleNodeClick(data, node, component) {
       this.axios
@@ -233,17 +173,16 @@ export default {
         .then((res) => {
           this.buList = res.data.data;
         });
-         this.axios
+      this.axios
         .get("http://192.168.43.141:8080/Property/findByIdRes/" + data.cid)
         .then((res) => {
           this.house = res.data.data;
         });
-         this.axios
-        .get("http://192.168.43.141:8080/Property/tCostitem/one?id=1" )
+      this.axios
+        .get("http://192.168.43.141:8080/Property/tCostitem/one?id=1")
         .then((res) => {
-           this.payItem= res.data
+          this.payItem = res.data;
         });
-     
     },
     buChange() {
       this.axios
@@ -258,37 +197,47 @@ export default {
     flChange() {
       this.axios
         .get(
-          "http://192.168.43.141:8080/Property/selectAllTHouseByUid/" +
-            this.fId
+          "http://192.168.43.141:8080/Property/selectAllTHouseByUid/" + this.fId
         )
         .then((res) => {
           this.room = res.data.data;
           console.log(this.room);
         });
     },
-    createPay(){
+    createPay() {
       var bookItem = {
-        parId:null,
+        parId: null,
         parName: this.parName,
         parCostname: this.payItem.ctName,
-        parCreatedate : this.begin,
+        parCreatedate: this.begin,
         parMark: this.man,
         houseId: this.rId,
         parDeBegin: this.end,
-        parDeEnd : this.end,
-        tParameterDetail : [{parDeId:"",parId:"",ctId:1,parDeAssessment:"",parDeBegin:"",parDeEnd:"",parDeDeadline:"",parDeState:""}]
-      }
-     this.axios.post('http://192.168.43.141:8080/Property/parameter/add',bookItem).then(res =>{
-       console.log(res)
-     }).catch(res=>{
-         console.log(res)
-     })
-    }
+        parDeEnd: this.end,
+        tParameterDetail: [
+          {
+            parDeId: "",
+            parId: "",
+            ctId: 1,
+            parDeAssessment: "",
+            parDeBegin: "",
+            parDeEnd: "",
+            parDeDeadline: "",
+            parDeState: "",
+          },
+        ],
+      };
+      this.axios
+        .post("http://192.168.43.141:8080/Property/parameter/add", bookItem)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+    },
   },
-  created(){
-  
-  }
-
+  created() {},
 };
 </script>
 <style  scoped>

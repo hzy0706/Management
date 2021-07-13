@@ -1,7 +1,7 @@
 <template>
-  <el-row :gutter="20">
-    <el-col :span="4"
-      ><div class="grid-content bg-purple">
+<div>
+ <el-row :gutter="20">
+    <el-col :span="4"><div class="grid-content bg-purple">
         <el-input
           v-model="roomId"
           placeholder="按照业主名/房间编号查询"
@@ -9,8 +9,8 @@
         <el-button type="primary" icon="el-icon-search" @click="selectBills"
           >查询</el-button
         >
-      </div></el-col
-    >
+      </div>
+      </el-col>
     <el-col :span="10" offset="3"
       ><div class="grid-content bg-purple">
         <el-table
@@ -20,27 +20,25 @@
           style="width: 100%"
           @selection-change="handleSelectionChange"
         >
+          <el-table-column width="120" type="selection"> </el-table-column>
 
-         <el-table-column  width="120" type="selection">
-          </el-table-column>
-
-          <el-table-column prop="ctName" label="费项名称" width="120" >
+          <el-table-column prop="ctName" label="费项名称" width="120">
           </el-table-column>
 
           <el-table-column prop="costMoney" label="单价" width="120">
-            
           </el-table-column>
 
-          <el-table-column label="上次读数" width="120"> 50.00
-            </el-table-column>
+          <el-table-column label="上次读数" width="120">
+            50.00
+          </el-table-column>
 
-          <el-table-column label="本次读数" width="120"> 
-             150.00
+          <el-table-column label="本次读数" width="120">
+            150.00
           </el-table-column>
 
           <el-table-column label="实际用量" width="120">
-              100.00
-           </el-table-column>
+            100.00
+          </el-table-column>
 
           <el-table-column prop="costMoney" label="费用金额" width="120">
           </el-table-column>
@@ -51,9 +49,7 @@
           <el-table-column prop="costMoney" label="本次应付" width="120">
           </el-table-column>
 
-          <el-table-column label="费用减免" width="120"> 
-            0.00
-          </el-table-column>
+          <el-table-column label="费用减免" width="120"> 0.00 </el-table-column>
 
           <el-table-column
             prop="chargeCostsBegintime"
@@ -72,8 +68,8 @@
           <el-table-column label="记录人" width="120">
             物业企业版用户
           </el-table-column>
-        </el-table></div
-    ></el-col>
+        </el-table>
+      </div></el-col>
   </el-row>
 
   <el-row :gutter="20">
@@ -92,38 +88,21 @@
   </el-table> -->
       </div>
     </el-col>
-    <el-col :span="10"
-      ><div class="grid-content bg-purple">
+
+    <el-col :span="10">
+      <div class="grid-content bg-purple">
         <el-row :gutter="20">
-          <el-col :span="6" offset="0"
-            ><div class="grid-content bg-purple">房间编号</div></el-col
-          >
-          <el-col :span="6"
-            ><div class="grid-content bg-purple">应缴笔数</div></el-col
-          >
-          <el-col :span="6"
-            ><div class="grid-content bg-purple">选中笔数</div></el-col
-          >
+          <el-col :span="6"><div class="grid-content bg-purple">房间编号：<span>{{roomId}}</div></el-col>
+          <el-col :span="6"><div class="grid-content bg-purple">
+           <span>租户名称:</span></div></el-col>
+          <el-col :span="6"><div class="grid-content bg-purple">3</div></el-col>
+          <el-col :span="6"><div class="grid-content bg-purple">4</div></el-col>
         </el-row>
-        <el-row :gutter="20">
-          <el-col :span="6"
-            ><div class="grid-content bg-purple">滞纳金总数</div></el-col
-          >
-          <el-col :span="6"
-            ><div class="grid-content bg-purple">应付金额</div></el-col
-          >
-        </el-row>
-        <el-row :gutter="20">
-          <el-col :span="6"
-            ><div class="grid-content bg-purple">订单备注</div></el-col
-          >
-          <el-col :span="6"
-            ><div class="grid-content bg-purple">收款</div></el-col
-          >
-        </el-row>
-      </div></el-col
-    >
+      </div>
+    </el-col>
   </el-row>
+</div>
+ 
 </template>
 
 
