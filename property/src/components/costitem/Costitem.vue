@@ -129,6 +129,7 @@
 						<el-button
 						  type="text"
 						  style="color: red"
+						  @click="dele(scope.row.ctId)"
 						  >删除</el-button
 						>
 					  </template>
@@ -137,9 +138,8 @@
 			<br/>
 			<div class="block">
 				<!-- 分页 -->
-				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-					:current-page="pageInfo.currentPage" :page-sizes="[5, 10, 15, 20]" :page-size="pageInfo.pagesize"
-					layout="total, sizes, prev, pager, next, jumper" :total="pageInfo.total">
+				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes="[10,20,40,80]"
+				 :page-size="pageInfo.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="pageInfo.tableTotal">
 				</el-pagination>
 			</div>
 		</div>
@@ -153,6 +153,7 @@
 		data() {
 			return {
 				pageInfo: {
+					tableTotal:'',
 					currentPage: 1,
 					pagesize: 10,
 					ctName: '',         //费项名称
@@ -268,13 +269,38 @@
 		watch: {},
 		
 		methods: {
+			dele(val){
+				// alert(val)
+				
+				this.$confirm('此操作将会删除该数据且不能撤回，是否继续？','提示',{
+					confirmButtonTest:'确定',
+					cancelButtonTest:'取消',
+					type:'warning'
+				}).then(() => {
+					this.axios({
+						url:"http://localhost:8080/Property/tCostitem",
+						method:'Delete',
+						params:{"id":val}
+					}).then(response => {
+						this.loadData()
+						this.$message({
+							type:"success",
+							message:'删除成功'
+						})
+					}).catch(() => {
+						this.message({
+							type:"info",
+							message:'已取消操作'
+						})
+					})
+				})
+			},
 			redact(a,b){
 				this.formData = b;
 				this.isAdd = false
+				console.log(b)
 			},
 			refuel(){
-				
-
 				if(this.isAdd){
 					this.axios({
 						url:"http://localhost:8080/Property/tCostitem",
@@ -336,7 +362,7 @@
 				}).then((response) =>{
                     console.log(response)
 					this.tableData = response.data.list
-					this.total = response.data.total//有几行总记录数
+					this.pageInfo.tableTotal = response.data.total//有几行总记录数
 					console.log(response)
 				}).catch((error) =>{
 
