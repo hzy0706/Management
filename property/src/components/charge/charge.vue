@@ -19,6 +19,7 @@
           tooltip-effect="dark"
           style="width: 100%"
           @selection-change="handleSelectionChange"
+          ref="tableCompponet"
         >
           <el-table-column width="120" type="selection"> </el-table-column>
 
@@ -92,11 +93,10 @@
     <el-col :span="10">
       <div class="grid-content bg-purple">
         <el-row :gutter="20">
-          <el-col :span="6"><div class="grid-content bg-purple">房间编号：<span>{{roomId}}</div></el-col>
-          <el-col :span="6"><div class="grid-content bg-purple">
-           <span>租户名称:</span></div></el-col>
-          <el-col :span="6"><div class="grid-content bg-purple">3</div></el-col>
-          <el-col :span="6"><div class="grid-content bg-purple">4</div></el-col>
+          <el-col :span="6"><div class="grid-content bg-purple"> 房间编号：<span>{{roomId}}</span></div></el-col>
+          <el-col :span="6"><div class="grid-content bg-purple"> <el-button size="mini" round @click="createPay"> 生成账单</el-button>
+          </div></el-col>
+     
         </el-row>
       </div>
     </el-col>
@@ -116,6 +116,18 @@ export default {
     };
   },
   methods: {
+    createPay(){
+       let select = this.$$refs.tableData.selection;
+       const data  = {select:select,
+       list:data}
+       this.axios
+        .post(
+          "http://192.168.43.141:8080/Property/bill/addBill/" ,data
+        )
+        .then((res) => {
+          this.tableData = res.data.data;
+        });
+    },
     goDetails(row, column, event) {},
     selectBills() {
       this.axios

@@ -25,12 +25,19 @@
           >
           <el-col :span="6"><div></div></el-col>
         </el-row>
-        <el-form :inline="true" :model="formData" class="demo-form-inline">
-          <el-form-item label="楼盘">
+
+      <el-row>
+          <el-form :model="formData" class="demo-form-inline" inline="true">
+          
+   
+
+          <el-form-item label="楼盘" >
             <el-input
+            size="small"
               placeholder=""
               readonly="true"
               v-model="house.residenceName"
+              
               >中东首栋</el-input
             >
           </el-form-item>
@@ -55,6 +62,7 @@
               ></el-option>
             </el-select>
           </el-form-item>
+
           <el-form-item label="房间">
             <el-select v-model="rId">
               <el-option
@@ -90,6 +98,9 @@
             <el-button type="primary" @click="createPay">生成台账</el-button>
           </el-form-item>
         </el-form>
+      </el-row>
+
+        
       </div>
     </el-col>
   </el-row>
