@@ -172,25 +172,25 @@ export default {
     },
     handleNodeClick(data, node, component) {
       this.axios
-        .get("http://192.168.43.141:8080/Property/findByIdRes/" + data.cid)
+        .get("http://localhost:8080/Property/findByIdRes/" + data.cid)
         .then((res) => {
           this.house = res.data.data;
         });
       this.axios
         .get(
-          "http://192.168.43.141:8080/Property/selectAllTBuildingByRid/" +
+          "http://localhost:8080/Property/selectAllTBuildingByRid/" +
             this.house.residenceId
         )
         .then((res) => {
           this.buList = res.data.data;
         });
       this.axios
-        .get("http://192.168.43.141:8080/Property/findByIdRes/" + data.cid)
+        .get("http://localhost:8080/Property/findByIdRes/" + data.cid)
         .then((res) => {
           this.house = res.data.data;
         });
       this.axios
-        .get("http://192.168.43.141:8080/Property/tCostitem/one?id=1")
+        .get("http://localhost:8080/Property/tCostitem/one?id=1")
         .then((res) => {
           this.payItem = res.data;
         });
@@ -198,7 +198,7 @@ export default {
     buChange() {
       this.axios
         .get(
-          "http://192.168.43.141:8080/Property/selectAllTUnitByBid/" + this.buId
+          "http://localhost:8080/Property/selectAllTUnitByBid/" + this.buId
         )
         .then((res) => {
           this.floor = res.data.data;
@@ -208,7 +208,7 @@ export default {
     flChange() {
       this.axios
         .get(
-          "http://192.168.43.141:8080/Property/selectAllTHouseByUid/" + this.fId
+          "http://localhost:8080/Property/selectAllTHouseByUid/" + this.fId
         )
         .then((res) => {
           this.room = res.data.data;
@@ -239,7 +239,7 @@ export default {
         ],
       };
       this.axios
-        .post("http://192.168.43.141:8080/Property/parameter/add", bookItem)
+        .post("http://localhost:8080/Property/parameter/add", bookItem)
         .then((res) => {
           console.log(res);
         })

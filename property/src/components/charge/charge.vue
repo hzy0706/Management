@@ -122,7 +122,7 @@ export default {
        list:data}
        this.axios
         .post(
-          "http://192.168.43.141:8080/Property/bill/addBill/" ,data
+          "http://localhost:8080/Property/bill/addBill/" ,data
         )
         .then((res) => {
           this.tableData = res.data.data;
@@ -132,7 +132,7 @@ export default {
     selectBills() {
       this.axios
         .get(
-          "http://192.168.43.141:8080/Property/chargeCosts/getByHoseId/" +
+          "http://localhost:8080/Property/chargeCosts/getByHoseId/" +
             this.roomId
         )
         .then((res) => {
