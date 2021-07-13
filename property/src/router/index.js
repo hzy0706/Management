@@ -24,7 +24,7 @@ import bookUpdate from '../components/charge/bookUpdate.vue'
 import details from '../components/charge/details.vue'
 import detailsUpdate from '../components/charge/detailsUpdate.vue'
 import charge from '../components/charge/charge.vue'
-import billList from '../components/charge/billList.vue'
+/* import billList from '../components/charge/billList.vue' */
 import billDetails from '../components/charge/billDetails.vue'
 
 
@@ -142,7 +142,7 @@ const routes = [{
 
 		}
 	},
-	{
+	/* {
 		path: '/billList',
 		name: 'billList',
 		components: {
@@ -152,7 +152,7 @@ const routes = [{
 			showpanel: billList
 
 		}
-	},
+	}, */
 	{
 		path: '/bill/billDetails',
 		name: 'billDetails',

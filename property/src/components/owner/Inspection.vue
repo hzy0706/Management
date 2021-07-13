@@ -8,7 +8,7 @@
 					</div>
 					<div class="ivn-page-header-row">
 						<div class="ivu-page-header-content">
-							业主验房
+							管理物业系统中业主验房的相关信息
 						</div>
 					</div>
 				</div>
@@ -195,7 +195,6 @@
 			},
 			addInspectionroominfo(){
 				const _this = this
-				console.log(this.Inspectionroominfo)
 				this.axios.post("http://localhost:8080/Property/addTInspectionroominfo", this.Inspectionroominfo)
 					.then(function(response) {
 						if (response.data.code == 200) {
@@ -272,6 +271,11 @@
 					}).catch(function(error) {
 						console.log(error)
 				})
+			},
+			handleClose() {
+				Object.keys(this.Inspectionroominfo).forEach((key) => (this.Inspectionroominfo[key] = ''))
+				this.dialogVisible = false;
+				this.dialogVisible2 = false;
 			},
 			handleSizeChange(size) {
 				this.pageInfo.pagesize = size;
