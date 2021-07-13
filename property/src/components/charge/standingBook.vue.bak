@@ -1,0 +1,358 @@
+<!--  -->
+<template>
+  <el-row :gutter="20">
+    <el-col :span="3"
+      ><div class="grid-content bg-purple">
+        <el-tree
+          :data="data"
+          :props="defaultProps"
+          @node-click="handleNodeClick"
+          :node-key="cid"
+        ></el-tree></div
+    ></el-col>
+<<<<<<< HEAD
+    <el-col :span="12" :offset="3"
+      ><div class="grid-content bg-purple">
+        <el-row :gutter="20">
+          <el-col :span="6"
+            ><div>费项名称：<span>{{payItem.ctName}}</span> &nbsp&nbsp&nbsp&nbsp&nbsp 单价:<span>{{payItem.ctSubtotal}}</span></div></el-col
+          >
+          <el-col :span="6"><div></div></el-col>
+        </el-row>
+        <el-form :inline="true" :model="formData" class="demo-form-inline">
+          <el-form-item label="楼盘">
+            <el-input
+              placeholder=""
+              readonly="true"
+              v-model="house.residenceName"
+              >中东首栋</el-input
+            >
+          </el-form-item>
+          <el-form-item label="楼宇">
+            <el-select v-model="buId" @change="buChange">
+              <el-option
+                v-for="item in buList"
+                :key="item.buildingId"
+                :label="item.buildingName"
+                :value="item.buildingId"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+
+          <el-form-item label="楼层">
+            <el-select v-model="fId" @change="flChange">
+              <el-option
+                v-for="item in floor"
+                :key="item.buildingId"
+                :label="item.unitName"
+                :value="item.unitId"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="房间">
+            <el-select v-model="rId">
+              <el-option
+                v-for="item in room"
+                :key="item.houseId"
+                :label="item.houseName"
+                :value="item.houseId"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+
+          <el-form-item  label="开始时间">
+           <el-input
+           
+              placeholder=""
+             
+              v-model="begin"
+              >中东首栋</el-input
+            >
+          </el-form-item>
+
+          <el-form-item  label="结束时间">
+           <el-input
+           
+              placeholder=""
+            
+              v-model="end"
+              >中东首栋</el-input
+            >
+          </el-form-item>
+
+       
+
+              <el-form-item label="台账名称">
+  <el-input
+             
+              v-model="parName"
+              >中东首栋</el-input
+            >
+          </el-form-item>
+
+           <el-form-item label="台账备注">
+  <el-input
+             
+              v-model="parMark"
+              >中东首栋</el-input
+            >
+          </el-form-item>
+
+           <el-form-item label="创建人">
+  <el-input
+             
+              v-model="man"
+              >中东首栋</el-input
+            >
+          </el-form-item>
+
+
+          <el-form-item>
+            <el-button type="primary" @click="createPay">生成台账</el-button>
+=======
+
+    <el-col :span="15"
+      ><div>
+        <el-form :inline="true" :model="formInline" class="demo-form-inline" label-position="right">
+          <el-form-item label="楼盘名称">
+            <el-input v-model="formInline.user" placeholder="楼盘名称"  :readonly="true"></el-input>
+          </el-form-item>
+          <el-form-item label="楼宇">
+            <el-select v-model="formInline.region" placeholder="活动区域">
+              <el-option label="区域一" value="shanghai"></el-option>
+              <el-option label="区域二" value="beijing"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="单元/楼层">
+            <el-select v-model="formInline.region" placeholder="活动区域">
+              <el-option label="区域一" value="shanghai"></el-option>
+              <el-option label="区域二" value="beijing"></el-option>
+            </el-select>
+>>>>>>> 6fd83794c0d9c3155cc5940a48d24464602039df
+          </el-form-item>
+          <el-form-item label="房间">
+            <el-select v-model="formInline.region" placeholder="活动区域">
+              <el-option label="区域一" value="shanghai"></el-option>
+              <el-option label="区域二" value="beijing"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="费用起期">
+            <el-date-picker v-model="value1" type="date" placeholder="选择日期">
+            </el-date-picker>
+          </el-form-item>
+           <el-form-item label="费用止期">
+            <el-date-picker v-model="value1" type="date" placeholder="选择日期">
+            </el-date-picker>
+          </el-form-item>
+        
+        </el-form>
+        <el-row type="flex" >
+
+  <el-col :span="6"><div class="grid-content bg-purple-light"> 台账名称<el-input v-model="input" :resize="horizontal"></el-input></div></el-col>
+  <el-col :span="6"><div class="grid-content bg-purple">  <el-button size="mini" round>生成台账</el-button></div></el-col>
+</el-row>
+        
+     
+        
+      </div>
+<<<<<<< HEAD
+      <!-- <dev class="grid-content bg-purple">
+=======
+      <div class="grid-content bg-purple">
+>>>>>>> 6fd83794c0d9c3155cc5940a48d24464602039df
+        <el-table :data="tableData" border style="width: 100%">
+          <el-table-column prop="date" label="日期" width="180">
+          </el-table-column>
+          <el-table-column prop="name" label="姓名" width="180">
+          </el-table-column>
+          <el-table-column prop="address" label="地址"> </el-table-column>
+<<<<<<< HEAD
+        </el-table> </dev
+    > -->
+    </el-col>
+=======
+        </el-table></div
+    ></el-col>
+>>>>>>> 6fd83794c0d9c3155cc5940a48d24464602039df
+  </el-row>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+<<<<<<< HEAD
+      begin:"",
+      end:"",
+      parName:"",
+      parMark:"",
+      data: [
+        {
+          label: "中东首栋",
+          children: [
+            {
+              label: "常规费项",
+=======
+      formInline: {
+        user: "",
+        region: "",
+      },
+      data: [
+        {
+          label: "常规台账",
+          children: [
+            {
+              label: "中东首府",
+>>>>>>> 6fd83794c0d9c3155cc5940a48d24464602039df
+              children: [
+                {
+                  cid: 1,
+                  label: "水电费",
+<<<<<<< HEAD
+=======
+                },
+              ],
+            },
+            {
+              label: "海边别墅",
+              children: [
+                {
+                  label: "煤气费",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: "公摊台账",
+          children: [
+            {
+              label: "中东首府",
+              children: [
+                {
+                  label: "卫生费",
+>>>>>>> 6fd83794c0d9c3155cc5940a48d24464602039df
+                },
+              ],
+            },
+          ],
+        },
+      ],
+      man:"",
+      buId: "",
+      fId: "",
+      rId: "",
+      buList: [],
+
+      defaultProps: {
+        children: "children",
+        label: "label",
+      },
+      form: {
+        name: "",
+      },
+      formData: [],
+      house: {
+        residenceId: 1,
+        residenceName: "",
+        greenArea: 66.66,
+        floorArea: 77.66,
+        address: "英国首都伦敦",
+        coveredArea: 10.0,
+        roadArea: 1.0,
+        taskName: "单新龙",
+        developer: "单新龙",
+      },
+      floor: [],
+      room: [],
+      payItem:{}
+    };
+  },
+  methods: {
+<<<<<<< HEAD
+
+    getbegin(data){
+        this.begin =data
+    },
+      getend(data){
+      this.end =data
+    },
+    handleNodeClick(data, node, component) {
+      this.axios
+        .get("http://192.168.43.141:8080/Property/findByIdRes/" + data.cid)
+        .then((res) => {
+          this.house = res.data.data;
+        });
+      this.axios
+        .get(
+          "http://192.168.43.141:8080/Property/selectAllTBuildingByRid/" +
+            this.house.residenceId
+        )
+        .then((res) => {
+          this.buList = res.data.data;
+        });
+         this.axios
+        .get("http://192.168.43.141:8080/Property/findByIdRes/" + data.cid)
+        .then((res) => {
+          this.house = res.data.data;
+        });
+         this.axios
+        .get("http://192.168.43.141:8080/Property/tCostitem/one?id=1" )
+        .then((res) => {
+           this.payItem= res.data
+        });
+     
+    },
+    buChange() {
+      this.axios
+        .get(
+          "http://192.168.43.141:8080/Property/selectAllTUnitByBid/" + this.buId
+        )
+        .then((res) => {
+          this.floor = res.data.data;
+          // console.log( this.floor)
+        });
+    },
+    flChange() {
+      this.axios
+        .get(
+          "http://192.168.43.141:8080/Property/selectAllTHouseByUid/" +
+            this.fId
+        )
+        .then((res) => {
+          this.room = res.data.data;
+          console.log(this.room);
+        });
+    },
+    createPay(){
+      var bookItem = {
+        parId:null,
+        parName: this.parName,
+        parCostname: this.payItem.ctName,
+        parCreatedate : this.begin,
+        parMark: this.man,
+        houseId: this.rId,
+        parDeBegin: this.end,
+        parDeEnd : this.end,
+        tParameterDetail : [{parDeId:"",parId:"",ctId:1,parDeAssessment:"",parDeBegin:"",parDeEnd:"",parDeDeadline:"",parDeState:""}]
+      }
+     this.axios.post('http://192.168.43.141:8080/Property/parameter/add',bookItem).then(res =>{
+       console.log(res)
+     }).catch(res=>{
+         console.log(res)
+     })
+    }
+  },
+  created(){
+  
+  }
+=======
+    handleNodeClick(data, node, component) {
+      // this.axios.get('http://localhost:8080/',data.cid)
+    },
+  },
+>>>>>>> 6fd83794c0d9c3155cc5940a48d24464602039df
+};
+</script>
+<style  scoped>
+</style>

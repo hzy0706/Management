@@ -38,6 +38,8 @@ import findMaintain from '../components/owner/MaintainInfo/findMaintain.vue'
 /*收费管理*/
 import charge from '../components/charge/charge.vue'
 import standingBook from '../components/charge/standingBook.vue'
+import bookUpdate from '../components/charge/bookUpdate.vue'
+import billList from '../components/charge/billList.vue'
 
 /*商铺管理*/
 import Tenant from '../components/shopstore/Tenant.vue'
@@ -315,19 +317,58 @@ const routes = [{
 		}
 	},
 	{
-		path: '/Xin',
-		name: 'Xin',
+
+		path: '/bookUpdate',
+		name: 'bookUpdate',
+
+
+
 		components: {
 			
 			showleft: ShowLeft,
 			showtop: ShowTop,
+
+			showpanel: bookUpdate
+
+		}
+	},
+		{
+
+		path: '/Xin',
+		name: 'Xin',
+
+		components: {
+			
+			showleft: ShowLeft,
+			showtop: ShowTop,
+
+
 			showpanel: Xin
+
 	
 		}
 	},
 	{
+
+		path: '/billList',
+		name: 'billList',
+
+		components: {
+			
+			showleft: ShowLeft,
+			showtop: ShowTop,
+
+			showpanel: billList
+	
+		}
+	},
+
+{
+
+
 		path: '/CostitemDistribute',
 		name: 'CostitemDistribute',
+
 		components: {
 			
 			showleft: ShowLeft,
@@ -336,6 +377,9 @@ const routes = [{
 	
 		}
 	},
+
+
+
 	
 ]
 

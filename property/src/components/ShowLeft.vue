@@ -34,8 +34,10 @@
 						<span>收费管理</span>
 					</template>
 					<el-menu-item-group>
-						<el-menu-item index="/charge">生成台账</el-menu-item>
-						<el-menu-item index="/standingBook">费用收取</el-menu-item>
+						<el-menu-item index="/charge">费用收取</el-menu-item>
+						<el-menu-item index="/standingBook">台账管理</el-menu-item>
+						<el-menu-item index="/bookUpdate">台账详情</el-menu-item>
+						<el-menu-item index="/billList">订单详情</el-menu-item>
 					</el-menu-item-group>
 				</el-submenu>
 				<el-submenu index="5">
