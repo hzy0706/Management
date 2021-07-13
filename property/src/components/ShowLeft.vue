@@ -30,7 +30,7 @@
 				</el-submenu>
 				<el-submenu index="5">
 					<template #title>
-						<i class="el-icon-user-solid"></i>
+						<i class="el-icon-menu"></i>
 						<span>商铺管理</span>
 					</template>
 					<el-menu-item-group>
