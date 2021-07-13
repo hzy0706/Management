@@ -6,8 +6,8 @@
 					<div class="handle-box">
 
 
-						<el-input v-model="tLeasingContract.searchInput" placeholder="用户名/商户编号" class="handle-input mr10"></el-input>
-						<el-button type="primary" @click="">查询</el-button>
+						<el-input v-model="tLeasingContract.searchInput" placeholder="联系人/联系电话" class="handle-input mr10"></el-input>
+						<el-button type="primary" @click="handleScreen">查询</el-button>
 					</div>
 				</div>
 			</div>
@@ -16,20 +16,19 @@
 	<div>
 		<div class="container">
 			<div style="float: left;margin-top:-38px;margin-left: 10px;">
-				
-				
+
+
 				<el-button type="primary" @click="tLeasingContract.dialogVisible=true">新增</el-button>
 			</div>
 			<el-dialog title="租赁合同签约" v-model="tLeasingContract.dialogVisible">
-				
+
 				<el-form :model="TLeasingContract" label-width="80px" style="width: 1000px;">
 					<el-row :span="3">基本信息:</el-row>
 					<el-row :span="3">
-						
+
 						<el-col :span="5">
 							<el-form-item label="签订日期" :label-width="formLabelWidth">
-								<el-date-picker type="datetime" placeholder="选择日期" size="medium"
-									v-model="TLeasingContract.leaseDate" style="width: 206px;"></el-date-picker>
+								<el-date-picker type="datetime" placeholder="选择日期" size="medium" v-model="TLeasingContract.leaseDate" style="width: 206px;"></el-date-picker>
 							</el-form-item>
 
 							<el-form-item label="联系人" :label-width="formLabelWidth">
@@ -37,25 +36,23 @@
 							</el-form-item>
 
 							<el-form-item label="日期" :label-width="formLabelWidth">
-								<el-date-picker type="datetime" placeholder="起租日期" size="medium"
-									v-model="TLeasingContract.leaseBegtime" style="width: 206px;"></el-date-picker>
-								
+								<el-date-picker type="datetime" placeholder="起租日期" size="medium" v-model="TLeasingContract.leaseBegtime" style="width: 206px;"></el-date-picker>
+
 							</el-form-item>
 
-							
+
 						</el-col>
 						<el-col :span="5">
 							<el-form-item label="选择租户" :label-width="formLabelWidth">
-								
-									<el-select @click="clickEmployeeSelect()" @change="changeEmployeeSelect()"
-										v-model="TLeasingContract.merId" style="width: 206px;" placeholder="请选择租户">
-										<el-option v-for="e in tMerchant.tableData" :label="e.merName"
-											:value="e.merId"></el-option>
-									</el-select>
-								
-								
+
+								<el-select @click="clickEmployeeSelect()" @change="changeEmployeeSelect()" v-model="TLeasingContract.merId"
+								 style="width: 206px;" placeholder="请选择租户">
+									<el-option v-for="e in tMerchant.tableData" :label="e.merName" :value="e.merId"></el-option>
+								</el-select>
+
+
 							</el-form-item>
-						
+
 
 
 
@@ -64,18 +61,17 @@
 								<el-input size="small" v-model="TLeasingContract.leasePhone"></el-input>
 							</el-form-item>
 							<el-form-item label="日期" :label-width="formLabelWidth">
-								<el-date-picker type="datetime" placeholder="停租日期" size="medium"
-									v-model="TLeasingContract.leaseEndtime" style="width: 206px;"></el-date-picker>
-								
+								<el-date-picker type="datetime" placeholder="停租日期" size="medium" v-model="TLeasingContract.leaseEndtime" style="width: 206px;"></el-date-picker>
+
 							</el-form-item>
 
-							
+
 
 						</el-col>
 
 
 					</el-row>
-					
+
 
 				</el-form>
 				<template #footer>
@@ -90,114 +86,153 @@
 
 
 
-			<el-dialog title="修改商户" v-model="tLeasingContract.dialogVisible1">
-				
+			<el-dialog title="修改租赁合同" v-model="tLeasingContract.dialogVisible1">
+
 				<el-form :model="TLeasingContract" label-width="80px" style="width: 1000px;">
-					
+					<el-row :span="3">基本信息:</el-row>
 					<el-row :span="3">
+
 						<el-col :span="5">
-							<el-form-item label="租户名称(必填)" :label-width="formLabelWidth">
-								<el-input v-model="TLeasingContract.merName" size="small" clearable></el-input>
+							<el-form-item label="签订日期" :label-width="formLabelWidth">
+								<el-date-picker type="datetime" placeholder="选择日期" size="medium" v-model="TLeasingContract.leaseDate" style="width: 206px;"></el-date-picker>
 							</el-form-item>
 
-							<el-form-item label="租户类别(必填)" :label-width="formLabelWidth">
-								<el-select v-model="TLeasingContract.merType" placeholder="租户类别" class="handle-select mr10">
-									<el-option key="本土品牌租户" label="本土品牌租户" value="本土品牌租户"></el-option>
-									<el-option key="个人租户" label="个人租户" value="个人租户"></el-option>
-									<el-option key="国际品牌租户" label="国际品牌租户" value="国际品牌租户"></el-option>
-									<el-option key="国内品牌租户" label="国内品牌租户" value="国内品牌租户"></el-option>
-									<el-option key="中小企业租户" label="中小企业租户" value="中小企业租户"></el-option>
-
-								</el-select>
+							<el-form-item label="联系人" :label-width="formLabelWidth">
+								<el-input v-model="TLeasingContract.leaseContacts" size="small" clearable></el-input>
 							</el-form-item>
 
-							<el-form-item label="法定代表" :label-width="formLabelWidth">
-								<el-input v-model="TLeasingContract.merRight" size="small" clearable></el-input>
+							<el-form-item label="日期" :label-width="formLabelWidth">
+								<el-date-picker type="datetime" placeholder="起租日期" size="medium" v-model="TLeasingContract.leaseBegtime" style="width: 206px;"></el-date-picker>
+
 							</el-form-item>
 
-							<el-form-item label="证件类型" :label-width="formLabelWidth">
-								<el-select v-model="TLeasingContract.merCardtype" placeholder="证件类型" class="handle-select mr10">
-									<el-option key="护照" label="护照" value="护照"></el-option>
-									<el-option key="驾驶证" label="驾驶证" value="驾驶证"></el-option>
-									<el-option key="身份证" label="身份证" value="身份证"></el-option>
-									<el-option key="营业执照" label="营业执照" value="营业执照"></el-option>
-									<el-option key="职业资格证" label="职业资格证" value="职业资格证"></el-option>
-								</el-select>
-							</el-form-item>
 
-							<el-form-item label="状态" :label-width="formLabelWidth">
-								<el-select v-model="TLeasingContract.merState" placeholder="状态" class="handle-select mr10">
-									<el-option key="0" label="正常" value="正常"></el-option>
-									<el-option key="1" label="停用" value="停用"></el-option>
-
-
-								</el-select>
-							</el-form-item>
 						</el-col>
 						<el-col :span="5">
-							<el-form-item label="联系人" :label-width="formLabelWidth">
-								<el-input v-model="TLeasingContract.merContacts" size="small" clearable></el-input>
+							<el-form-item label="选择租户" :label-width="formLabelWidth">
+
+								<el-select @click="clickEmployeeSelect()" @change="changeEmployeeSelect()" v-model="TLeasingContract.merId"
+								 style="width: 206px;" placeholder="请选择租户">
+									<el-option v-for="e in tMerchant.tableData" :label="e.merName" :value="e.merId"></el-option>
+								</el-select>
+
+
 							</el-form-item>
+
 
 
 
 
 							<el-form-item label="联系电话" :label-width="formLabelWidth">
-								<el-input size="small" v-model="TLeasingContract.merPhone"></el-input>
+								<el-input size="small" v-model="TLeasingContract.leasePhone"></el-input>
 							</el-form-item>
-							<el-form-item label="主营商品" :label-width="formLabelWidth">
-								<el-input v-model="TLeasingContract.merMain" size="small" clearable></el-input>
+							<el-form-item label="日期" :label-width="formLabelWidth">
+								<el-date-picker type="datetime" placeholder="停租日期" size="medium" v-model="TLeasingContract.leaseEndtime" style="width: 206px;"></el-date-picker>
+
 							</el-form-item>
 
-							<el-form-item label="证件号码" :label-width="formLabelWidth">
-								<el-input v-model="TLeasingContract.merCard" size="small" clearable></el-input>
-							</el-form-item>
 
-							<el-form-item label="地址" :label-width="formLabelWidth">
-								<el-input size="small" v-model="TLeasingContract.merAddress" style="width: 250px;"></el-input>
-							</el-form-item>
 
 						</el-col>
 
 
 					</el-row>
-					<el-row :span="3">
-						<el-col :span="5">
 
-							<el-form-item label="备注" :label-width="formLabelWidth">
-								<el-input v-model="TLeasingContract.merMarket" size="small" type="textarea" style="width: 500px;"></el-input>
-							</el-form-item>
-
-						</el-col>
-						<el-col :span="5">
-
-
-						</el-col>
-					</el-row>
 
 				</el-form>
 				<template #footer>
 					<span class="dialog-footer">
 						<el-button @click="tLeasingContract.dialogVisible1 = false;productallsel()">关 闭</el-button>
-
-						<el-button type="primary" @click="update(1)">修改</el-button>
+						
+						<el-button type="primary" @click="updatemode(1)">保存并关闭</el-button>
 					</span>
 				</template>
 			</el-dialog>
+
+
+
+
+			<el-dialog title="房间明细" v-model="tLeasingContract.fangjianVisible">
+
+				<el-form :model="TLeasingContract" label-width="80px" style="width: 1000px;">
+					<el-row :span="3">房间明细:</el-row>
+					<el-row :span="3">
+
+						<el-col :span="7">
+
+							<el-form-item label="选择房间" :label-width="formLabelWidth">
+							
+								<el-select @click="clickfangSelect()" @change="changefangSelect()" v-model="TLeasingContract.stoId" style="width: 206px;"
+								 placeholder="请选择房间">
+									<el-option v-for="e in tShoptore.tableData" :label="e.stoName" :value="e.stoId"></el-option>
+								</el-select>
+							
+							
+							</el-form-item>
+							
+							<el-form-item label="收费面积" :label-width="formLabelWidth">
+								<el-input v-model="TLeasingContract.leaseAcre" size="small" clearable></el-input>
+							</el-form-item>
+							
+							<el-form-item label="计费方式" :label-width="formLabelWidth">
+							<el-select v-model="TLeasingContract.leaseChangemode" placeholder="租户类别" class="handle-select mr10">
+								<el-option key="1" label="月" value="0"></el-option>
+								
+								
+							</el-select>
+							</el-form-item>
+						</el-col>
+						
+						
+						<el-col :span="5">
+							<el-form-item label="单价(m)" :label-width="formLabelWidth">
+								<el-input size="small" v-model="TLeasingContract.leaseUnitprice"></el-input>
+							</el-form-item>
+							<el-form-item label="租期(月)" :label-width="formLabelWidth">
+								<el-input size="small" v-model="TLeasingContract.leaseTenterm" disabled></el-input>
+							</el-form-item>
+
+
+						</el-col>
+
+
+					</el-row>
+
+
+				</el-form>
+				<template #footer>
+					<span class="dialog-footer">
+						<el-button @click="tLeasingContract.fangjianVisible = false;productallsel()">关 闭</el-button>
+
+						<el-button type="primary" @click="update(1)">保存并关闭</el-button>
+					</span>
+				</template>
+			</el-dialog>
+
+
+
+
+
+
+
+
 			<el-table :data="tLeasingContract.tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header"
 			 :header-cell-style="{background:'#f8f8f9',color:'#606266'}" @selection-change="handleSelectionChange">
-				<el-table-column label="操作">
+				<el-table-column label="操作" width="150">
 					<template #default="scope">
-						<el-button type="text" icon="el-icon-edit" @click="">房间明细
+						<el-button type="text" icon="el-icon-edit" @click="tLeasingContract.fangjianVisible=true;TLeasingContract=scope.row">房间租金明细
 						</el-button>
-						<el-button type="text" icon="el-icon-edit" @click="">租金明细
-						</el-button>
-						
+
+
 
 					</template>
 				</el-table-column>
-				
-				<el-table-column prop="merId" label="合同编号"></el-table-column>
+					
+				<el-table-column prop="leaseId" label="合同编号">
+					<template #default="scope">
+						<span @click="tLeasingContract.dialogVisible1=true;TLeasingContract=scope.row" style="color: #00FFFF;cursor: pointer;">{{scope.row.leaseId}}</span>
+					</template>
+				</el-table-column>
 				<el-table-column prop="leaseDate" label="签订日期"></el-table-column>
 				<el-table-column prop="tmerchant.merName" label="租户"></el-table-column>
 				<el-table-column prop="leaseBegtime" label="起租日期"></el-table-column>
@@ -207,14 +242,14 @@
 				<el-table-column prop="leaseChangemode" label="租金计费方式"></el-table-column>
 				<el-table-column prop="leaseAcre" label="收费面积"></el-table-column>
 				<el-table-column prop="leasePrice" label="租金总额"></el-table-column>
-				
+
 				<el-table-column label="状态">
 					<template #default="scope">
 						<p v-if="tLeasingContract.tableData[scope.$index].leaseAudit == 0">未生效</p>
 						<p v-if="tLeasingContract.tableData[scope.$index].leaseAudit == 1">已生效</p>
 					</template>
 				</el-table-column>
-				<el-table-column prop="tmerchant.merContacts" label="联系人"></el-table-column>
+				<el-table-column prop="leaseContacts" label="联系人"></el-table-column>
 				<el-table-column prop="tmerchant.merPhone" label="手机号码"></el-table-column>
 				<el-table-column prop="tmerchant.merCardtype" label="证件类型"></el-table-column>
 				<el-table-column prop="tmerchant.merCard" label="证件号码"></el-table-column>
@@ -247,6 +282,20 @@
 				tMerchant: {
 					dialogVisible: false,
 					dialogVisible1: false,
+
+					searchInput: '',
+					tableData: [],
+					tableTotal: '',
+					singleSelection: {},
+					pageParam: {
+						"pageNum": 1,
+						"pageSize": 10
+					}
+				},
+				tShoptore: {
+					dialogVisible: false,
+					dialogVisible1: false,
+
 					searchInput: '',
 					tableData: [],
 					tableTotal: '',
@@ -258,6 +307,8 @@
 				},
 				TLeasingContract: {},
 				tLeasingContract: {
+					fangjianVisible: false,
+					zujingVisible: false,
 					dialogVisible: false,
 					dialogVisible1: false,
 					searchInput: '',
@@ -276,16 +327,16 @@
 
 			searchCondition() {
 				return {
-					"merId": this.tLeasingContract.searchInput,
-					"merName": this.tLeasingContract.searchInput,
-					"merType": this.tLeasingContract.searchInput,
+					"leaseContacts": this.tLeasingContract.searchInput,
+					"leasePhone": this.tLeasingContract.searchInput,
+					
 
 				}
 			}
 		},
 
 		methods: {
-			clickEmployeeSelect(){
+			clickEmployeeSelect() {
 				this.axios({
 					url: "http://127.0.0.1:8080/Property/tMerchant/search",
 					method: 'get',
@@ -295,21 +346,46 @@
 					this.tMerchant.tableData = response.data.list
 					this.tMerchant.tableTotal = response.data.total
 				}).catch((error) => {
-				
+
 				})
-				},
-				
-				changeEmployeeSelect(){
-					this.tMerchant.tableData.forEach(aa=>{
-						if(this.TLeasingContract.merId==aa.merId){
-							this.TLeasingContract.leaseContacts=aa.merContacts
-							this.TLeasingContract.leasePhone=aa.merPhone
-						}
-						
-					})
-					
-					
-				},
+			},
+
+			clickfangSelect() {
+				this.axios({
+					url: "http://127.0.0.1:8080/Property/tShopstore/search",
+					method: 'get',
+					params: this.tMerchant.pageParam
+				}).then((response) => {
+					console.log(response.data.list)
+					this.tShoptore.tableData = response.data.list
+					this.tShoptore.tableTotal = response.data.total
+				}).catch((error) => {
+
+				})
+			},
+			changefangSelect() {
+				this.tShoptore.tableData.forEach(aa => {
+					if (this.TLeasingContract.stoId == aa.stoId) {
+						this.TLeasingContract.leaseAcre = aa.stoUsarea
+
+					}
+
+				})
+
+
+			},
+
+			changeEmployeeSelect() {
+				this.tMerchant.tableData.forEach(aa => {
+					if (this.TLeasingContract.merId == aa.merId) {
+						this.TLeasingContract.leaseContacts = aa.merContacts
+						this.TLeasingContract.leasePhone = aa.merPhone
+					}
+
+				})
+
+
+			},
 			handleSizeChange(val) {
 				this.tLeasingContract.pageParam.pageSize = val
 
@@ -360,10 +436,12 @@
 			},
 			add(number) {
 				if (this.TLeasingContract.leaseDate != '' && this.TLeasingContract.leaseDate != null && this.TLeasingContract.merId !=
-					'' && this.TLeasingContract.merId != null&&this.TLeasingContract.leaseContacts != '' && this.TLeasingContract.leaseContacts != null && this.TLeasingContract.leasePhone !=
-					'' && this.TLeasingContract.leasePhone != null&&this.TLeasingContract.leaseBegtime != '' && this.TLeasingContract.leaseBegtime != null && this.TLeasingContract.leaseEndtime !=
+					'' && this.TLeasingContract.merId != null && this.TLeasingContract.leaseContacts != '' && this.TLeasingContract.leaseContacts !=
+					null && this.TLeasingContract.leasePhone !=
+					'' && this.TLeasingContract.leasePhone != null && this.TLeasingContract.leaseBegtime != '' && this.TLeasingContract
+					.leaseBegtime != null && this.TLeasingContract.leaseEndtime !=
 					'' && this.TLeasingContract.leaseEndtime != null) {
-						var tLeasingContract=this.TLeasingContract
+					var tLeasingContract = this.TLeasingContract
 					this.axios({
 						url: 'http://127.0.0.1:8080/Property/tLeasingContract',
 						method: 'post',
@@ -397,10 +475,8 @@
 
 			},
 			update(number) {
-				if (this.TLeasingContract.leaseDate != '' && this.TLeasingContract.leaseDate != null && this.TLeasingContract.merId !=
-					'' && this.TLeasingContract.merId != null&&this.TLeasingContract.leaseContacts != '' && this.TLeasingContract.leaseContacts != null && this.TLeasingContract.leasePhone !=
-					'' && this.TLeasingContract.leasePhone != null&&this.TLeasingContract.leaseBegtime != '' && this.TLeasingContract.leaseBegtime != null && this.TLeasingContract.leaseEndtime !=
-					'' && this.TLeasingContract.leaseEndtime != null) {
+			
+					console.log(this.TLeasingContract)
 					this.axios({
 						url: 'http://127.0.0.1:8080/Property/tLeasingContract',
 						method: 'put',
@@ -409,7 +485,42 @@
 						if (number == 1) {
 							this.$message({
 								type: 'success',
-								message: '商户修改成功！'
+								message: '租赁明细修改成功！'
+							})
+						} else if (number == 0) {
+							this.$message({
+								type: 'success',
+								message: '请添加下一条数据！'
+							})
+						}
+						this.productallsel()
+						this.findMerchant()
+						if (number == 1) {
+							this.tLeasingContract.fangjianVisible = false
+						}
+					}).catch(error => {
+
+					})
+				
+
+			},
+			updatemode(number) {
+				if (this.TLeasingContract.leaseDate != '' && this.TLeasingContract.leaseDate != null && this.TLeasingContract.merId !=
+					'' && this.TLeasingContract.merId != null && this.TLeasingContract.leaseContacts != '' && this.TLeasingContract.leaseContacts !=
+					null && this.TLeasingContract.leasePhone !=
+					'' && this.TLeasingContract.leasePhone != null && this.TLeasingContract.leaseBegtime != '' && this.TLeasingContract
+					.leaseBegtime != null && this.TLeasingContract.leaseEndtime !=
+					'' && this.TLeasingContract.leaseEndtime != null) {
+					console.log(this.TLeasingContract)
+					this.axios({
+						url: 'http://127.0.0.1:8080/Property/tLeasingContract',
+						method: 'put',
+						data: this.TLeasingContract
+					}).then(response => {
+						if (number == 1) {
+							this.$message({
+								type: 'success',
+								message: '租赁合同修改成功！'
 							})
 						} else if (number == 0) {
 							this.$message({
@@ -423,7 +534,7 @@
 							this.tLeasingContract.dialogVisible1 = false
 						}
 					}).catch(error => {
-
+			
 					})
 				} else {
 					this.$message({
@@ -431,7 +542,7 @@
 						message: '必填未填！'
 					})
 				}
-
+			
 			},
 			findMerchant() {
 				this.queryType = 'all'

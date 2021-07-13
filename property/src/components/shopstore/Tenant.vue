@@ -6,7 +6,7 @@
 					<div class="handle-box">
 						
 						
-						<el-input v-model="tMerchant.searchInput" placeholder="用户名/商户编号/类别" class="handle-input mr10"></el-input>
+						<el-input v-model="tMerchant.searchInput" placeholder="用户名/类别" class="handle-input mr10"></el-input>
 						<el-button type="primary" icon="el-icon-search" @click="handleScreen">搜索</el-button>
 					</div>
 				</div>
@@ -293,7 +293,7 @@
 		
 			searchCondition() {
 				return {
-					"merId": this.tMerchant.searchInput,
+					
 					"merName": this.tMerchant.searchInput,
 					"merType": this.tMerchant.searchInput,
 					
