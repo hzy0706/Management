@@ -112,10 +112,10 @@
 
           </el-form-item>
           <el-form-item label="房间">
-            <el-select v-model="formInline.region" placeholder="活动区域">
+            <!-- <el-select v-model="formInline.region" placeholder="活动区域">
               <el-option label="区域一" value="shanghai"></el-option>
               <el-option label="区域二" value="beijing"></el-option>
-            </el-select>
+            </el-select> -->
           </el-form-item>
           <el-form-item label="费用起期">
             <el-date-picker v-model="value1" type="date" placeholder="选择日期">

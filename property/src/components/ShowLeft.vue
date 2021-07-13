@@ -34,23 +34,8 @@
 						<span>收费管理</span>
 					</template>
 					<el-menu-item-group>
-						<el-submenu>
-							<template #title>
-								<span>费用生成</span>
-							</template>
-							<el-menu-item-group>
-								<el-menu-item index="/standingBook">生成台账</el-menu-item>
-							</el-menu-item-group>
-						</el-submenu>
-						<el-submenu>
-							<template #title>
-								<span>台账管理</span>
-							</template>
-							<el-menu-item-group>
-								<el-menu-item index="/bookUpdate">常规台账修改</el-menu-item>
-								<el-menu-item index="/Owner">公摊台账修改</el-menu-item>
-							</el-menu-item-group>
-						</el-submenu>
+						<el-menu-item index="/charge">生成台账</el-menu-item>
+						<el-menu-item index="/standingBook">费用收取</el-menu-item>
 					</el-menu-item-group>
 				</el-submenu>
 				<el-submenu index="5">

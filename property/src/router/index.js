@@ -26,13 +26,8 @@ import Occupancy from '../components/owner/Occupancy.vue'
 import Maintain from '../components/owner/Maintain.vue'
 
 /*收费管理*/
-import standingBook from '../components/charge/standingBook.vue'
-import bookUpdate from '../components/charge/bookUpdate.vue'
-import details from '../components/charge/details.vue'
-import detailsUpdate from '../components/charge/detailsUpdate.vue'
 import charge from '../components/charge/charge.vue'
-import billList from '../components/charge/billList.vue'
-import billDetails from '../components/charge/billDetails.vue'
+import standingBook from '../components/charge/standingBook.vue'
 
 /*商铺管理*/
 import Tenant from '../components/shopstore/Tenant.vue'
@@ -148,48 +143,6 @@ const routes = [{
 		}
 	},
 	{
-		path: '/standingBook',
-		name: 'standingBook',
-		components: {
-			showleft: ShowLeft,
-			showtop: ShowTop,
-			showpanel: standingBook
-		}
-	},
-	{
-		path: '/bookUpdate',
-		name: 'bookUpdate',
-		components: {
-			
-			showleft: ShowLeft,
-			showtop: ShowTop,
-			showpanel: bookUpdate
-
-		}
-	},
-	{
-		path: '/details',
-		name: 'details',
-		components: {
-			
-			showleft: ShowLeft,
-			showtop: ShowTop,
-			showpanel: details
-
-		}
-	},
-	{
-		path: '/details/detailsUpdate',
-		name: 'detailsUpdate',
-		components: {
-			
-			showleft: ShowLeft,
-			showtop: ShowTop,
-			showpanel: detailsUpdate
-
-		}
-	},
-	{
 		path: '/charge',
 		name: 'charge',
 		components: {
@@ -201,25 +154,14 @@ const routes = [{
 		}
 	},
 	{
-		path: '/billList',
-		name: 'billList',
+		path: '/standingBook',
+		name: 'standingBook',
 		components: {
 			
 			showleft: ShowLeft,
 			showtop: ShowTop,
-			showpanel: billList
-
-		}
-	},
-	{
-		path: '/bill/billDetails',
-		name: 'billDetails',
-		components: {
-			
-			showleft: ShowLeft,
-			showtop: ShowTop,
-			showpanel: billDetails
-
+			showpanel: standingBook
+	
 		}
 	},
 	{
