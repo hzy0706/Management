@@ -18,7 +18,7 @@
     <div>
 		<div class="container">
 			<div class="handle-box" style="margin-left:0px">
-				<el-button @click="Ctxz.dialogTableVisible = true;isAdd = true;formData = {}" type="primary" icon="el-icon-plus" style="margin-left: 575px;">
+				<el-button @click="Ctxz.dialogTableVisible = true;isAdd = true;formData = {}" type="primary" icon="el-icon-plus" style="margin-left: -775px;">
 					新增
 				</el-button>
 				<el-dialog v-bind="$attrs" v-model="Ctxz.dialogTableVisible" v-on="$listeners" @open="onOpen" @close="onClose" title="详细信息">

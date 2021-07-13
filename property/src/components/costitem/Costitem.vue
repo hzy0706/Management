@@ -70,20 +70,15 @@
 							</el-input>
 						  </el-form-item>
 						</el-col>
-						<el-col :span="10">
-						  <el-form-item label="关联费项" prop="ctrelation">
-							<el-select v-model="formData.ctrelation" placeholder="请选择关联费项" clearable
-							  :style="{width: '100%'}"></el-select>
-						  </el-form-item>
-						</el-col>
+						
 						<el-col :span="10">
 						  <el-form-item label="超期天数" prop="overdue">
 							<el-input v-model="formData.overdue" placeholder="请输入超期天数" clearable :style="{width: '100%'}">
 							</el-input>
 						  </el-form-item>
 						</el-col>
-						<el-col :span="30">
-							<el-form-item label="滞纳金比率" prop="overduefine">
+						<el-col :span="11">
+							<el-form-item label="滞纳金/%" prop="overduefine">
 							  <el-input v-model="formData.overduefine" placeholder="请输入滞纳金比率" clearable :style="{width: '100%'}">
 							  </el-input>
 							</el-form-item>
@@ -116,7 +111,7 @@
                     </template>
                 </el-table-column>
                 <el-table-column prop="ctChargecycle" label="收费周期"></el-table-column>
-                <el-table-column prop="ctRelation" label="关联费项"></el-table-column>
+               
                 <el-table-column prop="overduefine" label="滞纳金比率"></el-table-column>
                 <el-table-column prop="overdue" label="超期天数"></el-table-column>   
 				<el-table-column label="操作" width="180" align="center">
@@ -177,7 +172,7 @@
 					ctName: undefined,
 					chco: "",
 					ctSubtotal: undefined,
-					ifprice: "否",
+					ifprice: "0",
 					ctChargecycle: 1,
 					ctRelation: "",
 					overdue: undefined,
@@ -316,7 +311,13 @@
 
 					})
 				}else{
-					this.axios({
+					// if(pageInfo.ifprice==1){
+					// 	this.$message({
+					// 	type: 'success',
+					// 	message: '不允许修改！',
+					// 	})
+					// }else{
+						this.axios({
 						url:"http://localhost:8080/Property/tCostitem",
 						method:'put',
 						data:this.formData
@@ -329,6 +330,7 @@
 					}).catch(error => {
 
 					})
+					//}
 				}
 				
 			},

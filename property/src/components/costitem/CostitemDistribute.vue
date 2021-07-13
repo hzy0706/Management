@@ -19,7 +19,7 @@
 		<div class="container">
 			<div class="handle-box" style="margin-left:0px">
                     请选择楼盘：
-                    <el-select @change="value" v-model="selecte.residenceName" @click="selectnoe()" placeholder="请下拉选择所属楼盘" clearable>
+                    <el-select  v-model="selecte.residenceName" @click="selectnoe()" placeholder="请下拉选择所属楼盘" clearable>
                     <el-option v-for="(item, index) in residenceNameOptions"  :key="index" :label="item.label"
                         :value="item.value" :disabled="item.disabled"></el-option>
                     </el-select>
@@ -127,7 +127,7 @@
                     console.log(response)
 					this.tableData = response.data.list
 					this.pageInfo.tableTotal = response.data.total//有几行总记录数
-					console.log(response)
+					console.log(tableData)
                 }).catch((error) =>{
 
 				}) 
