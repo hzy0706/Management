@@ -77,8 +77,8 @@
 							</el-input>
 						  </el-form-item>
 						</el-col>
-						<el-col :span="11">
-							<el-form-item label="滞纳金/%" prop="overduefine">
+						<el-col :span="30">
+							<el-form-item label="滞纳金比率" prop="overduefine">
 							  <el-input v-model="formData.overduefine" placeholder="请输入滞纳金比率" clearable :style="{width: '100%'}">
 							  </el-input>
 							</el-form-item>
@@ -86,7 +86,7 @@
 					  </el-form>
 					</el-row>
 					<div slot="footer">
-					  <el-button @click="close">取消</el-button>
+					  <el-button @click="Ctxz.dialogTableVisible = false">取消</el-button>
 					  <el-button type="primary" @click="refuel();Ctxz.dialogTableVisible = false">确定</el-button>
 					</div>
 				  </el-dialog>
@@ -172,7 +172,7 @@
 					ctName: undefined,
 					chco: "",
 					ctSubtotal: undefined,
-					ifprice: "0",
+					ifprice: "否",
 					ctChargecycle: 1,
 					ctRelation: "",
 					overdue: undefined,
@@ -311,13 +311,7 @@
 
 					})
 				}else{
-					// if(pageInfo.ifprice==1){
-					// 	this.$message({
-					// 	type: 'success',
-					// 	message: '不允许修改！',
-					// 	})
-					// }else{
-						this.axios({
+					this.axios({
 						url:"http://localhost:8080/Property/tCostitem",
 						method:'put',
 						data:this.formData
@@ -330,7 +324,6 @@
 					}).catch(error => {
 
 					})
-					//}
 				}
 				
 			},
