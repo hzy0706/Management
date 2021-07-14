@@ -52,6 +52,11 @@ import Statistics from '../components/shopstore/Statistics.vue'
 import Costitem from '../components/costitem/Costitem.vue'
 import CostitemDistribute from '../components/costitem/costitemDistribute.vue'
 import Xin from '../components/costitem/Xin.vue'
+
+//车位管理
+import parKing from '../components/parKing/Parking.vue'
+import PaKingsales from '../components/parKing/PaKingsales.vue'
+
 const routes = [{
 		path: '/',
 		redirect: '/HomePage'
@@ -378,6 +383,25 @@ const routes = [{
 		}
 	},
 
+	//车位管理
+			{
+				path: '/parKing',
+				name: 'parKing',
+				components: {
+					showleft: ShowLeft,
+					showtop: ShowTop,
+					showpanel: parKing
+				}
+			},
+			{
+				path: '/PaKingsales',
+				name: 'PaKingsales',
+				components: {
+					showleft: ShowLeft,
+					showtop: ShowTop,
+					showpanel: PaKingsales
+				}
+			}
 
 
 	

@@ -83,7 +83,7 @@
 					<el-input v-model="Inspectionroominfo.irRemark"></el-input>
 				</el-form-item>
 			</div>
-			<el-form-item style="position: absolute;top:480px;left: 570px;">
+			<el-form-item style="position: absolute;top:520px;left: 570px;">
 				<el-button type="primary" style="width: 200px;" @click="addInspectionroominfo()">保存</el-button>
 			</el-form-item>
 		</el-form>

@@ -24,13 +24,12 @@
 						<el-menu-item index="/Owner">业主信息</el-menu-item>
 						<el-menu-item index="/Inspection">业主验房</el-menu-item>
 						<el-menu-item index="/Decorate">业主装修</el-menu-item>
-						<el-menu-item index="/Occupancy">业主入住</el-menu-item>
 						<el-menu-item index="/Maintain">请修管理</el-menu-item>
 					</el-menu-item-group>
 				</el-submenu>
 				<el-submenu index="2">
 					<template #title>
-						<i class="el-icon-user-solid"></i>
+						<i class="el-icon-s-goods"></i>
 						<span>收费管理</span>
 					</template>
 					<el-menu-item-group>
@@ -38,6 +37,16 @@
 						<el-menu-item index="/standingBook">台账管理</el-menu-item>
 						<el-menu-item index="/bookUpdate">台账详情</el-menu-item>
 						<el-menu-item index="/billList">订单详情</el-menu-item>
+					</el-menu-item-group>
+				</el-submenu>
+				<el-submenu index="3">
+					<template #title>
+						<i class="el-icon-user-solid"></i>
+						<span>车位管理</span>
+					</template>
+					<el-menu-item-group>
+						<el-menu-item index="/parKing">车位信息</el-menu-item>
+						<el-menu-item index="/PaKingsales">车位销售</el-menu-item>
 					</el-menu-item-group>
 				</el-submenu>
 				<el-submenu index="5">
@@ -63,10 +72,10 @@
 							<span>常规费项</span>
 						</el-menu-item>
 						<el-menu-item index="/costitemDistribute">
-								费项查询
+							费项查询
 						</el-menu-item>
 						<el-menu-item index="/Xin">
-								公摊费项
+							公摊费项
 						</el-menu-item>
 					</el-menu-item-group>
 				</el-submenu>
