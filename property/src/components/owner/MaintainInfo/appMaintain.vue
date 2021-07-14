@@ -8,7 +8,7 @@
 					</div>
 					<div class="ivn-page-header-row">
 						<div class="ivu-page-header-content">
-							业主房产信息维护
+							业主请修信息维护
 						</div>
 					</div>
 				</div>
